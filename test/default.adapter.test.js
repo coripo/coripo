@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
 const adapter = require('../src/default.adapter.js');
 
@@ -19,30 +20,30 @@ describe('Default Adapter', () => {
   describe('isValid', () => {
     it('should return true when input is (2016, 2, 29)', () => {
       const date = { year: 2016, month: 2, day: 29 };
-      expect(adapter.isValid(date)).to.equal(true);
+      expect(adapter.isValid(date)).to.be.true;
     });
     it('should return true when input is (2017, 2, 28)', () => {
       const date = { year: 2017, month: 2, day: 28 };
-      expect(adapter.isValid(date)).to.equal(true);
+      expect(adapter.isValid(date)).to.be.true;
     });
     it('should return false when input is (2017, 2, 29)', () => {
       const date = { year: 2017, month: 2, day: 29 };
-      expect(adapter.isValid(date)).to.equal(false);
+      expect(adapter.isValid(date)).to.be.false;
     });
   });
 
   describe('isLeap', () => {
     it('should return false when input is 2015', () => {
-      expect(adapter.isLeap(2015)).to.equal(false);
+      expect(adapter.isLeap(2015)).to.be.false;
     });
     it('should return true when input is 2016', () => {
-      expect(adapter.isLeap(2016)).to.equal(true);
+      expect(adapter.isLeap(2016)).to.be.true;
     });
     it('should return false when input is 2017', () => {
-      expect(adapter.isLeap(2017)).to.equal(false);
+      expect(adapter.isLeap(2017)).to.be.false;
     });
     it('should return true when input is 2020', () => {
-      expect(adapter.isLeap(2020)).to.equal(true);
+      expect(adapter.isLeap(2020)).to.be.true;
     });
   });
 
