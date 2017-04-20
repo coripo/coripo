@@ -1,0 +1,22 @@
+{
+  "name": "onecalendar",
+  "version": "1.0.0",
+  "description": "a simple and flexible calendar",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariush-alipour/onecalendar.git"
+  },
+  "keywords": [
+    "calendar"
+  ],
+  "author": "Dariush Alipour <drsh.alipour@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dariush-alipour/onecalendar/issues"
+  },
+  "homepage": "https://github.com/dariush-alipour/onecalendar#readme"
+}
