@@ -1,14 +1,14 @@
 {
-  "name": "onecalendar",
+  "name": "onecalendar-engine",
   "version": "1.0.0",
-  "description": "a simple and flexible calendar",
+  "description": "a simple and flexible calendar engine",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dariush-alipour/onecalendar.git"
+    "url": "git+https://github.com/dariush-alipour/onecalendar-engine.git"
   },
   "keywords": [
     "calendar"
@@ -16,9 +16,9 @@
   "author": "Dariush Alipour <drsh.alipour@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dariush-alipour/onecalendar/issues"
+    "url": "https://github.com/dariush-alipour/onecalendar-engine/issues"
   },
-  "homepage": "https://github.com/dariush-alipour/onecalendar#readme",
+  "homepage": "https://github.com/dariush-alipour/onecalendar-engine#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
