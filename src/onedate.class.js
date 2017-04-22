@@ -26,7 +26,12 @@ const OneDate = function OneDate(config, helper) {
 
   const int = () => {
     const date = localToPrimary({ year, month, day });
-    return parseInt(`${date.year.slice(-4)}${date.month.slice(-2)}${date.day.slice(-2)}`, 10);
+    const sdate = {
+      year: (`${date.year}`).slice(-4),
+      month: (`0${date.month}`).slice(-2),
+      day: (`0${date.day}`).slice(-2),
+    };
+    return parseInt(`${sdate.year}${sdate.month}${sdate.day}`, 10);
   };
 
   return { year, month, day, adapterId, int };

@@ -1,30 +1,30 @@
 const Event = function Event(config) {
-  let startDate;
-  let endDate;
+  let since;
+  let till;
   let title;
   let note;
   let tags;
 
   const construct = () => {
-    startDate = config.startDate;
-    endDate = config.endDate;
+    since = config.since;
+    till = config.till;
     title = config.title;
     note = config.note;
     tags = config.tags || [];
   };
   construct();
 
-  const isIn = (_startDate, _endDate) => {
-    if (startDate.int() >= _startDate.int() && startDate.int() <= _endDate.int()) {
+  const isIn = (_since, _till) => {
+    if (_since.int() <= since.int() && _till.int() >= since.int()) {
       return true;
     }
-    if (endDate.int() >= _startDate.int() && endDate.int() <= _endDate.int()) {
+    if (_since.int() <= till.int() && _till.int() >= till.int()) {
       return true;
     }
     return false;
   };
 
-  return { title, note, startDate, endDate, tags, isIn };
+  return { title, note, since, till, tags, isIn };
 };
 
 exports.Event = Event;

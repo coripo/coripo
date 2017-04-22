@@ -23,14 +23,14 @@ const EventManager = function EventManager(config = {}) {
   construct();
 
   const add = (evt) => {
-    const startDate = new OneDate(evt.startDate, { getAdapter, primaryAdapterId });
-    const endDate = evt.endDate ?
-      new OneDate(evt.endDate, { getAdapter, primaryAdapterId }) :
-      new OneDate(evt.startDate, { getAdapter, primaryAdapterId });
+    const since = new OneDate(evt.since, { getAdapter, primaryAdapterId });
+    const till = evt.till ?
+      new OneDate(evt.till, { getAdapter, primaryAdapterId }) :
+      new OneDate(evt.since, { getAdapter, primaryAdapterId });
 
     const event = new Event({
-      startDate,
-      endDate,
+      since,
+      till,
       title: evt.title,
       note: evt.note,
       tags: evt.tags,
@@ -48,9 +48,10 @@ const EventManager = function EventManager(config = {}) {
     return events;
   };
 
-  const getDateRange = (startDate, endDate) => {
-    events = this.events.filter(evt => evt.isIn(startDate, endDate));
-    return events;
+  const getDateRange = (since, till) => {
+    const helper = { getAdapter, primaryAdapterId };
+    const condition = e => e.isIn(new OneDate(since, helper), new OneDate(till, helper));
+    return events.filter(condition);
   };
 
   const getMonth = (_year, _month) => {
