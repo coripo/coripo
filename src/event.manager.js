@@ -1,17 +1,14 @@
 const Event = require('./event.class.js');
 
-const EventManager = function EventManager() {
+const EventManager = function EventManager(data) {
   const construct = () => {
     this.events = [];
+    this.adapter = data.adapter;
   };
   construct();
 
-  const setAdapter = (adapter) => {
-    this.adapter = adapter;
-  };
-
   const add = (startDate, endDate, title, description, tags) => {
-    const event = new Event(startDate, endDate, title, description, tags);
+    const event = new Event({ startDate, endDate, title, description, tags });
     this.events.push(event);
   };
 
@@ -26,7 +23,7 @@ const EventManager = function EventManager() {
     }
   };
 
-  return { setAdapter, add, getDate, getMonth };
+  return { add, getDate, getMonth };
 };
 
 exports.EventManager = EventManager;

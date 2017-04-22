@@ -8,7 +8,7 @@ const Event = function Event(data) {
   };
   construct(data);
 
-  const isIn = function isIn(_startDate, _endDate) {
+  const isIn = (_startDate, _endDate) => {
     if (data.startDate.int() >= _startDate.int() && data.startDate.int() <= _endDate.int()) {
       return true;
     }

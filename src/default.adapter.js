@@ -1,48 +1,41 @@
-const months = [
-  { name: 'January', short: 'Jan' },
-  { name: 'February', short: 'Feb' },
-  { name: 'March', short: 'Mar' },
-  { name: 'April', short: 'Apr' },
-  { name: 'May', short: 'May' },
-  { name: 'June', short: 'Jun' },
-  { name: 'July', short: 'Jul' },
-  { name: 'August', short: 'Aug' },
-  { name: 'September', short: 'Sept' },
-  { name: 'October', short: 'Oct' },
-  { name: 'November', short: 'Nov' },
-  { name: 'December', short: 'Dec' },
-];
+const Adapter = function Adapter() {
+  const months = [
+    { name: 'January', short: 'Jan' },
+    { name: 'February', short: 'Feb' },
+    { name: 'March', short: 'Mar' },
+    { name: 'April', short: 'Apr' },
+    { name: 'May', short: 'May' },
+    { name: 'June', short: 'Jun' },
+    { name: 'July', short: 'Jul' },
+    { name: 'August', short: 'Aug' },
+    { name: 'September', short: 'Sept' },
+    { name: 'October', short: 'Oct' },
+    { name: 'November', short: 'Nov' },
+    { name: 'December', short: 'Dec' },
+  ];
+  const name = 'dariush-alipour.onecalendar.adapter.default';
 
-exports.name = 'dariush-alipour.onecalendar.adapter.default';
+  const l10n = date => date;
 
-exports.l10n = function l10n(date) {
-  const ldate = date;
-  return ldate;
-};
+  const i18n = ldate => ldate;
 
-exports.i18n = function i18n(ldate) {
-  const date = ldate;
-  return date;
-};
+  const getMonthName = (month, short) => {
+    const mon = (months[month - 1]);
+    if (typeof mon === 'undefined') {
+      throw new Error('Invalid month number, number should be between 1 and 12');
+    }
+    return short ? mon.short : mon.name;
+  };
 
-exports.isValid = function isValid(date) {
-  return (date.year >= 1)
+  const getMonthLength = (year, month) => new Date(year, month, 0).getDate();
+
+  const isValid = date => (date.year >= 1)
     && (date.month >= 1 && date.month <= 12)
-    && (date.day >= 1 && date.day <= exports.getMonthLength(date.year, date.month));
+    && (date.day >= 1 && date.day <= getMonthLength(date.year, date.month));
+
+  const isLeap = year => ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+
+  return { name, l10n, i18n, isValid, isLeap, getMonthName, getMonthLength };
 };
 
-exports.isLeap = function isLeap(year) {
-  return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
-};
-
-exports.getMonthName = function getMonthName(month, short) {
-  const mon = (months[month - 1]);
-  if (typeof mon === 'undefined') {
-    throw new Error('Invalid month number, number should be between 1 and 12');
-  }
-  return short ? mon.short : mon.name;
-};
-
-exports.getMonthLength = function getMonthLength(year, month) {
-  return new Date(year, month, 0).getDate();
-};
+exports.Adapter = Adapter;

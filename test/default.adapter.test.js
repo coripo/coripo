@@ -1,105 +1,107 @@
 /* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
-const adapter = require('../src/default.adapter.js');
+const DefaultAdapter = require('../src/default.adapter.js').Adapter;
+
+const defaultAdapter = new DefaultAdapter();
 
 describe('Default Adapter', () => {
   describe('l10n', () => {
     it('should return an object containing the date given to the method', () => {
       const date = { year: 2017, month: 12, day: 20 };
-      expect(adapter.l10n(date)).to.equal(date);
+      expect(defaultAdapter.l10n(date)).to.equal(date);
     });
   });
 
   describe('i18n', () => {
     it('should return an object containing the date given to the method', () => {
       const date = { year: 2017, month: 12, day: 20 };
-      expect(adapter.i18n(date)).to.equal(date);
+      expect(defaultAdapter.i18n(date)).to.equal(date);
     });
   });
 
   describe('isValid', () => {
     it('should return true when input is (2016, 2, 29)', () => {
       const date = { year: 2016, month: 2, day: 29 };
-      expect(adapter.isValid(date)).to.be.true;
+      expect(defaultAdapter.isValid(date)).to.be.true;
     });
     it('should return true when input is (2017, 2, 28)', () => {
       const date = { year: 2017, month: 2, day: 28 };
-      expect(adapter.isValid(date)).to.be.true;
+      expect(defaultAdapter.isValid(date)).to.be.true;
     });
     it('should return false when input is (2017, 2, 29)', () => {
       const date = { year: 2017, month: 2, day: 29 };
-      expect(adapter.isValid(date)).to.be.false;
+      expect(defaultAdapter.isValid(date)).to.be.false;
     });
   });
 
   describe('isLeap', () => {
     it('should return false when input is 2015', () => {
-      expect(adapter.isLeap(2015)).to.be.false;
+      expect(defaultAdapter.isLeap(2015)).to.be.false;
     });
     it('should return true when input is 2016', () => {
-      expect(adapter.isLeap(2016)).to.be.true;
+      expect(defaultAdapter.isLeap(2016)).to.be.true;
     });
     it('should return false when input is 2017', () => {
-      expect(adapter.isLeap(2017)).to.be.false;
+      expect(defaultAdapter.isLeap(2017)).to.be.false;
     });
     it('should return true when input is 2020', () => {
-      expect(adapter.isLeap(2020)).to.be.true;
+      expect(defaultAdapter.isLeap(2020)).to.be.true;
     });
   });
 
   describe('getMonthName', () => {
     it('should return string when number is between 1 and 12', () => {
       for (let i = 1; i <= 12; i += 1) {
-        expect(adapter.getMonthName(i)).to.be.a('string');
+        expect(defaultAdapter.getMonthName(i)).to.be.a('string');
       }
     });
     it('should throw error when number is 0', () => {
-      expect(() => { adapter.getMonthName(0); }).to.throw(Error);
+      expect(() => { defaultAdapter.getMonthName(0); }).to.throw(Error);
     });
     it('should throw error when number is 13', () => {
-      expect(() => { adapter.getMonthName(13); }).to.throw(Error);
+      expect(() => { defaultAdapter.getMonthName(13); }).to.throw(Error);
     });
   });
 
   describe('getMonthLength', () => {
     it('should return 31 when input is (2017, 1)', () => {
-      expect(adapter.getMonthLength(2017, 1)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 1)).to.equal(31);
     });
     it('should return 28 when input is (2017, 2)', () => {
-      expect(adapter.getMonthLength(2017, 2)).to.equal(28);
+      expect(defaultAdapter.getMonthLength(2017, 2)).to.equal(28);
     });
     it('should return 29 when input is (2016, 2)', () => {
-      expect(adapter.getMonthLength(2016, 2)).to.equal(29);
+      expect(defaultAdapter.getMonthLength(2016, 2)).to.equal(29);
     });
     it('should return 31 when input is (2017, 3)', () => {
-      expect(adapter.getMonthLength(2017, 3)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 3)).to.equal(31);
     });
     it('should return 30 when input is (2017, 4)', () => {
-      expect(adapter.getMonthLength(2017, 4)).to.equal(30);
+      expect(defaultAdapter.getMonthLength(2017, 4)).to.equal(30);
     });
     it('should return 31 when input is (2017, 5)', () => {
-      expect(adapter.getMonthLength(2017, 5)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 5)).to.equal(31);
     });
     it('should return 30 when input is (2017, 6)', () => {
-      expect(adapter.getMonthLength(2017, 6)).to.equal(30);
+      expect(defaultAdapter.getMonthLength(2017, 6)).to.equal(30);
     });
     it('should return 31 when input is (2017, 7)', () => {
-      expect(adapter.getMonthLength(2017, 7)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 7)).to.equal(31);
     });
     it('should return 31 when input is (2017, 8)', () => {
-      expect(adapter.getMonthLength(2017, 8)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 8)).to.equal(31);
     });
     it('should return 30 when input is (2017, 9)', () => {
-      expect(adapter.getMonthLength(2017, 9)).to.equal(30);
+      expect(defaultAdapter.getMonthLength(2017, 9)).to.equal(30);
     });
     it('should return 31 when input is (2017, 10)', () => {
-      expect(adapter.getMonthLength(2017, 10)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 10)).to.equal(31);
     });
     it('should return 30 when input is (2017, 11)', () => {
-      expect(adapter.getMonthLength(2017, 11)).to.equal(30);
+      expect(defaultAdapter.getMonthLength(2017, 11)).to.equal(30);
     });
     it('should return 31 when input is (2017, 12)', () => {
-      expect(adapter.getMonthLength(2017, 12)).to.equal(31);
+      expect(defaultAdapter.getMonthLength(2017, 12)).to.equal(31);
     });
   });
 });

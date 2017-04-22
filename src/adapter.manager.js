@@ -1,20 +1,20 @@
-const defaultAdapter = require('./default.adapter.js');
+const DefaultAdapter = require('./default.adapter.js').Adapter;
 
-let primary;
-let adapters;
+const AdapterManager = function AdapterManager(data = {}) {
+  const construct = () => {
+    this.adapters = [...(data.externalAdapters || []), new DefaultAdapter()];
+    this.primary = this.adapters.find(adapter => adapter.name === data.primaryAdapterName || 'dariush-alipour.onecalendar.adapter.default');
+    return this.adapters;
+  };
+  construct();
 
-const load = function setAdapters(primaryAdapterName = 'dariush-alipour.onecalendar.adapter.default', externalAdapters = []) {
-  adapters = [...externalAdapters, defaultAdapter];
-  primary = adapters.find(adapter => adapter.name === primaryAdapterName);
-  return adapters;
+  const get = (adapterName) => {
+    const adapter = this.adapters.find(item => item.name === adapterName);
+    if (!adapter) throw new Error(`requested adapter '${adapterName}' not found.`);
+    return adapter;
+  };
+
+  return { primary: this.primary, get };
 };
 
-const get = function getAdapter(adapterName) {
-  const adapter = adapters.find(item => item.name === adapterName);
-  if (!adapter) throw new Error(`requested adapter '${adapterName}' not found.`);
-  return adapter;
-};
-
-exports.primary = primary;
-exports.load = load;
-exports.get = get;
+exports.AdapterManager = AdapterManager;

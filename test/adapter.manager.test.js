@@ -1,19 +1,22 @@
 /* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
-const adapterManager = require('../src/adapter.manager.js');
+const AdapterManager = require('../src/adapter.manager.js').AdapterManager;
 
 describe('Adapter Manager', () => {
-  describe('load', () => {
-    it('should return adapters array by length of 1', () => {
-      expect(adapterManager.load()).to.have.lengthOf(1);
+  describe('primary', () => {
+    it('should return an adapter object as primary object', () => {
+      const adapterManager = new AdapterManager();
+      expect(adapterManager.primary).to.be.an('object');
     });
   });
 
   describe('get', () => {
-    it('should return adapter object', () => {
+    it('should return an adapter object', () => {
+      const adapterManager = new AdapterManager();
       expect(adapterManager.get('dariush-alipour.onecalendar.adapter.default')).to.be.an('object');
     });
     it('should throw error', () => {
+      const adapterManager = new AdapterManager();
       expect(() => { adapterManager.get('impossibleadaptername'); }).to.throw(Error);
     });
   });
