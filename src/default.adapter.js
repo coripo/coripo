@@ -1,4 +1,6 @@
 const Adapter = function Adapter() {
+  const name = 'dariush-alipour.onecalendar.adapter.default';
+
   const months = [
     { name: 'January', short: 'Jan' },
     { name: 'February', short: 'Feb' },
@@ -13,7 +15,6 @@ const Adapter = function Adapter() {
     { name: 'November', short: 'Nov' },
     { name: 'December', short: 'Dec' },
   ];
-  const name = 'dariush-alipour.onecalendar.adapter.default';
 
   const l10n = date => date;
 
