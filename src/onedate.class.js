@@ -1,6 +1,6 @@
 const OneDate = function OneDate(data) {
   const construct = () => {
-    this.adapter = data.adapter;
+    this.adapterId = data.adapterId;
     this.year = data.year;
     this.month = data.month;
     this.day = data.day;

@@ -1,17 +1,16 @@
-import AdapterManager from './adapter.manager';
-import EventManager from './event.manager';
+const EventManager = require('./event.manager.js').EventManager;
 
-const App = function App(_AdapterManager, _EventManager) {
-  const construct = () => { };
+const App = function App(config = {}) {
+  const construct = () => {
+    this.eventManager = new EventManager({
+      primaryAdapterId: config.primaryAdapterId,
+      externalAdapters: config.externalAdapters,
+    });
+  };
   construct();
 
-  const loadAdapters = (primaryAdapterName, externalAdapters) => {
-    this.adapterManager = new _AdapterManager(primaryAdapterName, externalAdapters);
-    this.eventManager = new _EventManager(this.adapterManager.primary);
-  };
-
-  const addEvent = () => {
-
+  const addEvent = (title, description, startDate, endDate, tags) => {
+    this.eventManager.add({ title, description, startDate, endDate, tags });
   };
 
   const getDateEvents = () => {
@@ -22,7 +21,7 @@ const App = function App(_AdapterManager, _EventManager) {
 
   };
 
-  return { loadAdapters, addEvent, getDateEvents, getMonthEvents };
+  return { addEvent, getDateEvents, getMonthEvents };
 };
 
-exports.App = new App(new AdapterManager(), new EventManager());
+exports.App = App;
