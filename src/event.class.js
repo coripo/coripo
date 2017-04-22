@@ -1,23 +1,30 @@
-const Event = function Event(data) {
+const Event = function Event(config) {
+  let startDate;
+  let endDate;
+  let title;
+  let note;
+  let tags;
+
   const construct = () => {
-    this.startDate = data.startDate;
-    this.endDate = data.endDate;
-    this.title = data.title;
-    this.description = data.description;
-    this.tags = data.tags;
+    startDate = config.startDate;
+    endDate = config.endDate;
+    title = config.title;
+    note = config.note;
+    tags = config.tags || [];
   };
-  construct(data);
+  construct();
 
   const isIn = (_startDate, _endDate) => {
-    if (data.startDate.int() >= _startDate.int() && data.startDate.int() <= _endDate.int()) {
+    if (startDate.int() >= _startDate.int() && startDate.int() <= _endDate.int()) {
       return true;
     }
-    if (data.endDate.int() >= _startDate.int() && data.endDate.int() <= _endDate.int()) {
+    if (endDate.int() >= _startDate.int() && endDate.int() <= _endDate.int()) {
       return true;
     }
     return false;
   };
-  return { isIn };
+
+  return { title, note, startDate, endDate, tags, isIn };
 };
 
 exports.Event = Event;

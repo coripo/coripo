@@ -9,8 +9,8 @@ const App = function App(config = {}) {
   };
   construct();
 
-  const addEvent = (title, description, startDate, endDate, tags) => {
-    this.eventManager.add({ title, description, startDate, endDate, tags });
+  const addEvent = (title, note, startDate, endDate, tags) => {
+    this.eventManager.add({ title, note, startDate, endDate, tags });
   };
 
   const getDateEvents = () => {

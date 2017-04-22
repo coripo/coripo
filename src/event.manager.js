@@ -1,45 +1,42 @@
 const DefaultAdapter = require('./default.adapter.js').Adapter;
-const Event = require('./event.class.js');
-const OneDate = require('./event.class.js');
+const Event = require('./event.class.js').Event;
+const OneDate = require('./onedate.class.js').OneDate;
 
 const EventManager = function EventManager(config = {}) {
   let primaryAdapterId = 'dariush-alipour.onecalendar.adapter.default';
   let primaryAdapter;
+  let adapters = [];
   let events = [];
 
   const getAdapter = (adapterId) => {
-    const adapter = this.adapters.find(item => item.id === adapterId);
+    const adapter = adapters.find(item => item.id === (adapterId || primaryAdapterId));
     if (!adapter) throw new Error(`requested adapter '${adapterId}' not found.`);
     return adapter;
   };
 
   const construct = () => {
-    this.adapters = (config.externalAdapters || []).push(new DefaultAdapter());
+    adapters = config.externalAdapters || [];
+    adapters = adapters.concat([new DefaultAdapter()]);
     primaryAdapterId = config.primaryAdapterId || primaryAdapterId;
     primaryAdapter = getAdapter(primaryAdapterId);
   };
   construct();
 
   const add = (evt) => {
-    const startDate = new OneDate(evt.startDate.concat({
-      adapter: getAdapter(evt.startDate.adapterId),
-    }));
+    const startDate = new OneDate(evt.startDate, { getAdapter, primaryAdapterId });
     const endDate = evt.endDate ?
-      new OneDate(evt.endDate.concat({
-        adapter: getAdapter(evt.endDate.adapterId),
-      })) :
-      new OneDate(evt.startDate.concat({
-        adapter: getAdapter(evt.startDate.adapterId),
-      }));
+      new OneDate(evt.endDate, { getAdapter, primaryAdapterId }) :
+      new OneDate(evt.startDate, { getAdapter, primaryAdapterId });
 
     const event = new Event({
       startDate,
       endDate,
       title: evt.title,
-      description: evt.description,
+      note: evt.note,
       tags: evt.tags,
     });
-    this.events.push(event);
+    events = events.concat([event]);
+    return events;
   };
 
   const edit = (eventId, evt) => {
