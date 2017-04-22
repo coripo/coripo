@@ -39,7 +39,7 @@ const EventManager = function EventManager(config = {}) {
     return events;
   };
 
-  const edit = (eventId, evt) => {
+  const edit = () => {
 
   };
 
