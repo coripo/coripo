@@ -13,6 +13,8 @@ const months = [
   { name: 'December', short: 'Dec' },
 ];
 
+exports.name = 'dariush-alipour.onecalendar.adapter.default';
+
 exports.l10n = function l10n(date) {
   const ldate = date;
   return ldate;
