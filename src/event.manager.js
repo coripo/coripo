@@ -49,8 +49,10 @@ const EventManager = function EventManager(config = {}) {
 
   const getDateRange = (since, till) => {
     const helper = { getAdapter, primaryAdapterId };
-    const condition = e => e.isIn(new OneDate(since, helper), new OneDate(till, helper));
-    return events.filter(condition);
+    const result = events.reduce((acc, val) => acc.concat(val.query(
+        new OneDate(since, helper),
+        new OneDate(till, helper))), []);
+    return result;
   };
 
   const getMonth = (_year, _month) => {

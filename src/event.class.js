@@ -12,7 +12,7 @@ const Event = function Event(config) {
   };
   construct();
 
-  const isIn = (_since, _till) => {
+  const includes = (event, _since, _till) => {
     if (_since.int() <= since.int() && _till.int() >= since.int()) {
       return true;
     }
@@ -22,7 +22,20 @@ const Event = function Event(config) {
     return false;
   };
 
-  return { title, note, since, till, isIn };
+  const query = (_since, _till) => {
+    let events = [];
+    events = events.concat(includes(this, _since, _till) ? [
+      {
+        title,
+        note,
+        since,
+        till,
+      }] : []);
+
+    return events;
+  };
+
+  return { title, note, since, till, query };
 };
 
 exports.Event = Event;
