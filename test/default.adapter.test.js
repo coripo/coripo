@@ -5,6 +5,17 @@ const DefaultAdapter = require('../src/default.adapter.js').Adapter;
 const defaultAdapter = new DefaultAdapter();
 
 describe('Default Adapter', () => {
+  describe('id', () => {
+    it('should return a string', () => {
+      expect(defaultAdapter.id).to.be.a('string');
+    });
+  });
+
+  describe('name', () => {
+    it('should return a string', () => {
+      expect(defaultAdapter.name).to.be.a('string');
+    });
+  });
   describe('l10n', () => {
     it('should return an object containing the date given to the method', () => {
       const date = { year: 2017, month: 12, day: 20 };

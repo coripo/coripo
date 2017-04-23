@@ -1,5 +1,6 @@
 const Adapter = function Adapter() {
   const id = 'dariush-alipour.onecalendar.adapter.default';
+  const name = 'Gregorian';
 
   const months = [
     { name: 'January', short: 'Jan' },
@@ -36,7 +37,7 @@ const Adapter = function Adapter() {
 
   const isLeap = year => ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
 
-  return { id, l10n, i18n, isValid, isLeap, getMonthName, getMonthLength };
+  return { id, name, l10n, i18n, isValid, isLeap, getMonthName, getMonthLength };
 };
 
 exports.Adapter = Adapter;
