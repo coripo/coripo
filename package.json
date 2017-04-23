@@ -29,6 +29,6 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-react": "^6.10.3",
     "mocha": "^3.2.0",
-    "onecalendar-adapter-jalali": "^1.0.3"
+    "onecalendar-adapter-jalali": "^1.0.4"
   }
 }

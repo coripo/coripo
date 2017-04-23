@@ -33,7 +33,6 @@ const EventManager = function EventManager(config = {}) {
       till,
       title: evt.title,
       note: evt.note,
-      tags: evt.tags,
     });
     events = events.concat([event]);
     return events;

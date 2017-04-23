@@ -3,14 +3,12 @@ const Event = function Event(config) {
   let till;
   let title;
   let note;
-  let tags;
 
   const construct = () => {
     since = config.since;
     till = config.till;
     title = config.title;
     note = config.note;
-    tags = config.tags || [];
   };
   construct();
 
@@ -24,7 +22,7 @@ const Event = function Event(config) {
     return false;
   };
 
-  return { title, note, since, till, tags, isIn };
+  return { title, note, since, till, isIn };
 };
 
 exports.Event = Event;
