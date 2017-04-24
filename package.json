@@ -32,6 +32,6 @@
     "onecalendar-adapter-jalali": "^1.0.4"
   },
   "dependencies": {
-    "onecalendar-core": "^1.0.0"
+    "onecalendar-core": "^1.0.1"
   }
 }
