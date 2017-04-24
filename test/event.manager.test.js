@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
+const GregorianAdapter = require('onecalendar-core').GregorianAdapter;
 const JalaliAdapter = require('onecalendar-adapter-jalali').Adapter;
 const EventManager = require('../src/event.manager.js').EventManager;
 
@@ -78,7 +79,7 @@ describe('Event Manager', () => {
             year: 1396,
             month: 2,
             day: 4,
-            adapterId: 'dariush-alipour.onecalendar.adapter.jalali',
+            adapterId: new JalaliAdapter().id,
           },
         });
 
@@ -102,7 +103,7 @@ describe('Event Manager', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager({
           externalAdapters: [new JalaliAdapter()],
-          primaryAdapterId: 'dariush-alipour.onecalendar.adapter.jalali',
+          primaryAdapterId: new JalaliAdapter().id,
         });
 
         eventManager.add({
@@ -112,7 +113,7 @@ describe('Event Manager', () => {
             year: 1396,
             month: 2,
             day: 4,
-            adapterId: 'dariush-alipour.onecalendar.adapter.jalali',
+            adapterId: new JalaliAdapter().id,
           },
         });
 
@@ -123,7 +124,7 @@ describe('Event Manager', () => {
             year: 2017,
             month: 3,
             day: 5,
-            adapterId: 'dariush-alipour.onecalendar.adapter.gregorian',
+            adapterId: new GregorianAdapter().id,
           },
         });
 
@@ -134,7 +135,7 @@ describe('Event Manager', () => {
             year: 2017,
             month: 4,
             day: 25,
-            adapterId: 'dariush-alipour.onecalendar.adapter.gregorian',
+            adapterId: new GregorianAdapter().id,
           },
         });
 

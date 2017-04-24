@@ -1,9 +1,9 @@
-const GregorianAdapter = require('onecalendar-core').Adapter;
+const GregorianAdapter = require('onecalendar-core').GregorianAdapter;
 const Event = require('onecalendar-core').Event;
 const OneDate = require('onecalendar-core').OneDate;
 
 const EventManager = function EventManager(config = {}) {
-  let primaryAdapterId = 'dariush-alipour.onecalendar.adapter.gregorian';
+  let primaryAdapterId;
   let primaryAdapter;
   let adapters = [];
   let events = [];
@@ -17,7 +17,7 @@ const EventManager = function EventManager(config = {}) {
   const construct = () => {
     adapters = config.externalAdapters || [];
     adapters = adapters.concat([new GregorianAdapter()]);
-    primaryAdapterId = config.primaryAdapterId || primaryAdapterId;
+    primaryAdapterId = config.primaryAdapterId || new GregorianAdapter().id;
     primaryAdapter = getAdapter(primaryAdapterId);
   };
   construct();
@@ -50,8 +50,8 @@ const EventManager = function EventManager(config = {}) {
   const getDateRange = (since, till) => {
     const helper = { getAdapter, primaryAdapterId };
     const result = events.reduce((acc, val) => acc.concat(val.query(
-        new OneDate(since, helper),
-        new OneDate(till, helper))), []);
+      new OneDate(since, helper),
+      new OneDate(till, helper))), []);
     return result;
   };
 

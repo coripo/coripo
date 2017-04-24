@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
-const BasicGenerator = require('../src/basic.generator.js').Generator;
 const Event = require('onecalendar-core').Event;
 const OneDate = require('onecalendar-core').OneDate;
+const GregorianAdapter = require('onecalendar-core').GregorianAdapter;
+const BasicGenerator = require('../src/basic.generator.js').Generator;
 
 const basicGenerator = new BasicGenerator(Event);
 
@@ -30,7 +31,11 @@ describe('Basic Generator', () => {
       const event = basicGenerator.generate({
         title: 'Thanksgiving at grandma\'s house',
         note: 'Wear good stuff, put some cologne and DO NOT talk much',
-        since: new OneDate({ year: 2017, month: 11, day: 23 }),
+        since: new OneDate({ year: 2017, month: 11, day: 23 },
+          {
+            getAdapter: () => new GregorianAdapter(),
+            primaryAdapterId: new GregorianAdapter().id,
+          }),
       });
       expect(event).to.be.an('object');
     });
