@@ -123,7 +123,7 @@ describe('Event Manager', () => {
             year: 2017,
             month: 3,
             day: 5,
-            adapterId: 'dariush-alipour.onecalendar.adapter.default',
+            adapterId: 'dariush-alipour.onecalendar.adapter.gregorian',
           },
         });
 
@@ -134,7 +134,7 @@ describe('Event Manager', () => {
             year: 2017,
             month: 4,
             day: 25,
-            adapterId: 'dariush-alipour.onecalendar.adapter.default',
+            adapterId: 'dariush-alipour.onecalendar.adapter.gregorian',
           },
         });
 

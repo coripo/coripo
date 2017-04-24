@@ -1,9 +1,9 @@
-const DefaultAdapter = require('./default.adapter.js').Adapter;
-const Event = require('./event.class.js').Event;
-const OneDate = require('./onedate.class.js').OneDate;
+const GregorianAdapter = require('onecalendar-core').Adapter;
+const Event = require('onecalendar-core').Event;
+const OneDate = require('onecalendar-core').OneDate;
 
 const EventManager = function EventManager(config = {}) {
-  let primaryAdapterId = 'dariush-alipour.onecalendar.adapter.default';
+  let primaryAdapterId = 'dariush-alipour.onecalendar.adapter.gregorian';
   let primaryAdapter;
   let adapters = [];
   let events = [];
@@ -16,7 +16,7 @@ const EventManager = function EventManager(config = {}) {
 
   const construct = () => {
     adapters = config.externalAdapters || [];
-    adapters = adapters.concat([new DefaultAdapter()]);
+    adapters = adapters.concat([new GregorianAdapter()]);
     primaryAdapterId = config.primaryAdapterId || primaryAdapterId;
     primaryAdapter = getAdapter(primaryAdapterId);
   };
