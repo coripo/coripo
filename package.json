@@ -1,7 +1,7 @@
 {
   "name": "onecalendar-engine",
   "version": "1.0.0",
-  "description": "a simple and flexible calendar engine",
+  "description": "a simple and flexible calendar engine api",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec"
