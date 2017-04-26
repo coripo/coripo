@@ -82,7 +82,7 @@ describe('Event Manager', () => {
     context('when various adapters with gregorian as primary', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager({
-          externalAdapters: [JalaliAdapter],
+          plugins: { adapters: [JalaliAdapter] },
         });
 
         eventManager.add({
@@ -113,7 +113,7 @@ describe('Event Manager', () => {
     context('when various adapters with jalali as primary', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager({
-          externalAdapters: [JalaliAdapter],
+          plugins: { adapters: [JalaliAdapter] },
           primaryAdapterId: JALALI_ADAPTER_ID,
         });
 
