@@ -17,11 +17,10 @@ const App = function App(config = {}) {
   });
 
   const getMonthInfo = (year, month) => eventManager.getMonthInfo(year, month);
-
-  const addEvent = (title, note, since, till) => eventManager.add({ title, note, since, till });
   const getEventsIn = (since, till) => eventManager.getDateRange(since, till);
+  const addEvent = (title, note, since, till) => eventManager.add({ title, note, since, till });
 
-  return { getAdaptersInfo, setPrimaryAdapterId, getMonthInfo, addEvent, getEventsIn };
+  return { getAdaptersInfo, setPrimaryAdapterId, getMonthInfo, getEventsIn, addEvent };
 };
 
 exports.App = App;
