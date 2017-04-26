@@ -1,6 +1,6 @@
-const GregorianAdapter = require('onecalendar-core').GregorianAdapter;
-const Event = require('onecalendar-core').Event;
-const OneDate = require('onecalendar-core').OneDate;
+const GregorianAdapter = require('coripo-core').GregorianAdapter;
+const Event = require('coripo-core').Event;
+const OneDate = require('coripo-core').OneDate;
 const BasicGenerator = require('./basic.generator.js').Generator;
 
 const EventManager = function EventManager(config = {}) {

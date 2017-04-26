@@ -1,14 +1,14 @@
 {
-  "name": "onecalendar-engine",
+  "name": "coripo-api",
   "version": "1.0.0",
-  "description": "a simple and flexible calendar engine api",
+  "description": "a simple and flexible calendar api",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dariush-alipour/onecalendar-engine.git"
+    "url": "git+https://github.com/coripo/coripo-api.git"
   },
   "keywords": [
     "calendar"
@@ -16,9 +16,9 @@
   "author": "Dariush Alipour <drsh.alipour@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dariush-alipour/onecalendar-engine/issues"
+    "url": "https://github.com/coripo/coripo-api/issues"
   },
-  "homepage": "https://github.com/dariush-alipour/onecalendar-engine#readme",
+  "homepage": "https://github.com/coripo/coripo-api#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
@@ -29,9 +29,9 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-react": "^6.10.3",
     "mocha": "^3.2.0",
-    "onecalendar-adapter-jalali": "^1.0.4"
+    "coripo-adapter-jalali": "^1.0.8"
   },
   "dependencies": {
-    "onecalendar-core": "^1.0.1"
+    "coripo-core": "^1.0.6"
   }
 }

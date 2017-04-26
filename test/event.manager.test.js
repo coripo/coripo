@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
-const Event = require('onecalendar-core').Event;
-const GregorianAdapter = require('onecalendar-core').GregorianAdapter;
-const JalaliAdapter = require('onecalendar-adapter-jalali').Adapter;
+const Event = require('coripo-core').Event;
+const GregorianAdapter = require('coripo-core').GregorianAdapter;
+const JalaliAdapter = require('coripo-adapter-jalali').Adapter;
 const BasicGenerator = require('../src/basic.generator.js').Generator;
 const EventManager = require('../src/event.manager.js').EventManager;
 

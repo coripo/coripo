@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-expressions */
 const expect = require('chai').expect;
-const Event = require('onecalendar-core').Event;
-const OneDate = require('onecalendar-core').OneDate;
-const GregorianAdapter = require('onecalendar-core').GregorianAdapter;
+const Event = require('coripo-core').Event;
+const OneDate = require('coripo-core').OneDate;
+const GregorianAdapter = require('coripo-core').GregorianAdapter;
 const BasicGenerator = require('../src/basic.generator.js').Generator;
 
 const basicGenerator = new BasicGenerator({
