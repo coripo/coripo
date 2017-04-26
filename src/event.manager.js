@@ -12,11 +12,20 @@ const EventManager = function EventManager(config = {}) {
 
   let events = [];
 
+  const getAdaptersInfo = () => adapters.map(a => (
+    { id: a.id, name: a.name, description: a.description }
+  ));
+
   const getAdapter = (adapterId) => {
     const adapter = adapters.find(a => a.id === (adapterId || primaryAdapterId));
     if (!adapter) throw new Error(`requested adapter '${adapterId}' not found.`);
     return adapter;
   };
+
+  const getMonthInfo = (year, month) => ({
+    name: primaryAdapter.getMonthName(month),
+    days: primaryAdapter.getMonthLength(year, month),
+  });
 
   const getGenerator = (generatorId) => {
     const generator = generators.find(g => g.id === generatorId);
@@ -80,7 +89,7 @@ const EventManager = function EventManager(config = {}) {
   const getYear = year => this.getDateRange(
     { year, month: 1, day: 1 }, { year, month: 12, day: 31 });
 
-  return { add, edit, remove, getDateRange, getMonth, getYear };
+  return { getAdaptersInfo, getMonthInfo, add, edit, remove, getDateRange, getMonth, getYear };
 };
 
 exports.EventManager = EventManager;

@@ -11,6 +11,24 @@ describe('Event Manager', () => {
   const GREGORIAN_ADAPTER_ID = new GregorianAdapter().id;
   const JALALI_ADAPTER_ID = new JalaliAdapter().id;
 
+  describe('getAdaptersInfo()', () => {
+    const eventManager = new EventManager();
+
+    it('should return an array', () => {
+      expect(eventManager.getAdaptersInfo()).to.be.an('array');
+    });
+  });
+
+  describe('getMonthInfo()', () => {
+    const eventManager = new EventManager();
+
+    it('should return an object with name string and days number', () => {
+      const info = eventManager.getMonthInfo(2017, 10);
+      expect(info.name).to.be.a('string');
+      expect(info.days).to.be.a('number');
+    });
+  });
+
   describe('add', () => {
     it('should increase events array size appropriately', () => {
       const eventManager = new EventManager();
