@@ -47,7 +47,7 @@ const EventManager = function EventManager(config = {}) {
   };
   construct();
 
-  const add = (evt) => {
+  const addEvent = (evt) => {
     const generator = getGenerator(evt.generatorId);
     const event = generator.generate(evt);
     events = events.concat([event]);
@@ -63,7 +63,7 @@ const EventManager = function EventManager(config = {}) {
     return events;
   };
 
-  const getDateRange = (since, till) => {
+  const getEventsIn = (since, till) => {
     const helper = { getAdapter, primaryAdapterId };
     const result = events.reduce((acc, val) => acc.concat(val.query(
       new OneDate(since, helper),
@@ -89,7 +89,7 @@ const EventManager = function EventManager(config = {}) {
   const getYear = year => this.getDateRange(
     { year, month: 1, day: 1 }, { year, month: 12, day: 31 });
 
-  return { getAdaptersInfo, getMonthInfo, add, edit, remove, getDateRange, getMonth, getYear };
+  return { getAdaptersInfo, getMonthInfo, addEvent, getEventsIn, edit, remove, getMonth, getYear };
 };
 
 exports.EventManager = EventManager;

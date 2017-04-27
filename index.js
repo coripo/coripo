@@ -17,8 +17,8 @@ const App = function App(config = {}) {
   });
 
   const getMonthInfo = (year, month) => eventManager.getMonthInfo(year, month);
-  const getEventsIn = (since, till) => eventManager.getDateRange(since, till);
-  const addEvent = (title, note, since, till) => eventManager.add({ title, note, since, till });
+  const getEventsIn = (since, till) => eventManager.getEventsIn(since, till);
+  const addEvent = (title, note, since, till) => eventManager.addEvent({ title, note, since, till });
 
   return { getAdaptersInfo, setPrimaryAdapterId, getMonthInfo, getEventsIn, addEvent };
 };

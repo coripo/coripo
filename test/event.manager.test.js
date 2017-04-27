@@ -33,21 +33,21 @@ describe('Event Manager', () => {
     it('should increase events array size appropriately', () => {
       const eventManager = new EventManager();
 
-      expect(eventManager.add({
+      expect(eventManager.addEvent({
         generatorId: BASIC_GENERATOR_ID,
         title: 'Dentist Appointment',
         note: 'Don\'t ask the dentist why he smokes',
         since: { year: 2017, month: 5, day: 14, adapterId: GREGORIAN_ADAPTER_ID },
       })).to.have.lengthOf(1);
 
-      expect(eventManager.add({
+      expect(eventManager.addEvent({
         generatorId: BASIC_GENERATOR_ID,
         title: 'Business Meeting',
         note: 'Fortunately it\'s an informal one',
         since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
       })).to.have.lengthOf(2);
 
-      expect(eventManager.add({
+      expect(eventManager.addEvent({
         generatorId: BASIC_GENERATOR_ID,
         title: 'Vacation Time',
         note: '5 days of pure fun and relaxation in 305',
@@ -70,21 +70,21 @@ describe('Event Manager', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager();
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Dentist Appointment',
           note: 'Don\'t ask the dentist why he smokes',
           since: { year: 2017, month: 5, day: 14, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Business Meeting',
           note: 'Fortunately it\'s an informal one',
           since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Vacation Time',
           note: '5 days of pure fun and relaxation in 305',
@@ -94,7 +94,7 @@ describe('Event Manager', () => {
 
         const since = { year: 2017, month: 5, day: 1 };
         const till = { year: 2017, month: 10, day: 8 };
-        expect(eventManager.getDateRange(since, till)).to.have.lengthOf(2);
+        expect(eventManager.getEventsIn(since, till)).to.have.lengthOf(2);
       });
     });
     context('when various adapters with gregorian as primary', () => {
@@ -103,28 +103,28 @@ describe('Event Manager', () => {
           plugins: { adapters: [JalaliAdapter] },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Meeting in Teheran',
           note: 'Yay!',
           since: { year: 1396, month: 2, day: 4, adapterId: JALALI_ADAPTER_ID },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Business Meeting',
           note: 'Fortunately it\'s an informal one',
           since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Meeting in Sacramento',
           note: 'As usual..',
           since: { year: 2017, month: 4, day: 25, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
-        expect(eventManager.getDateRange({ year: 2017, month: 4, day: 20 },
+        expect(eventManager.getEventsIn({ year: 2017, month: 4, day: 20 },
           { year: 2017, month: 4, day: 30 })).to.have.lengthOf(2);
       });
     });
@@ -135,28 +135,28 @@ describe('Event Manager', () => {
           primaryAdapterId: JALALI_ADAPTER_ID,
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Meeting in Teheran',
           note: 'Yay!',
           since: { year: 1396, month: 2, day: 4, adapterId: JALALI_ADAPTER_ID },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Business Meeting',
           note: 'Fortunately it\'s an informal one',
           since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
-        eventManager.add({
+        eventManager.addEvent({
           generatorId: BASIC_GENERATOR_ID,
           title: 'Meeting in Sacramento',
           note: 'As usual..',
           since: { year: 2017, month: 4, day: 25, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
-        expect(eventManager.getDateRange({ year: 1396, month: 2, day: 3 },
+        expect(eventManager.getEventsIn({ year: 1396, month: 2, day: 3 },
           { year: 1396, month: 2, day: 5 })).to.have.lengthOf(2);
       });
     });
