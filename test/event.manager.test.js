@@ -209,42 +209,42 @@ describe('Event Manager', () => {
         expect(events).to.have.lengthOf(6);
       });
     });
-    context('when has external overlap case', () => {
-      it.only('should return an array of 29 events', () => {
-        const eventManager = new EventManager({
-          plugins: { generators: [MenstruationGenerator] },
-        });
+    // context('when has external overlap case', () => {
+    //   it.only('should return an array of 29 events', () => {
+    //     const eventManager = new EventManager({
+    //       plugins: { generators: [MenstruationGenerator] },
+    //     });
 
-        eventManager.addEvent({
-          generatorId: MENSTRUATION_GENERATOR_ID,
-          id: 1,
-          start: { year: 2017, month: 4, day: 4 },
-          periodLength: 5,
-          cycleLength: 28,
-        });
+    //     eventManager.addEvent({
+    //       generatorId: MENSTRUATION_GENERATOR_ID,
+    //       id: 1,
+    //       start: { year: 2017, month: 4, day: 4 },
+    //       periodLength: 5,
+    //       cycleLength: 28,
+    //     });
 
-        eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
-          id: 9,
-          title: 'Weekend',
-          since: { year: 2017, month: 4, day: 7 },
-          till: { year: 2017, month: 4, day: 8 },
-          repeats: [{ times: -1, cycle: 'day', step: 7 }],
-        });
+    //     eventManager.addEvent({
+    //       generatorId: BASIC_GENERATOR_ID,
+    //       id: 9,
+    //       title: 'Weekend',
+    //       since: { year: 2017, month: 4, day: 7 },
+    //       till: { year: 2017, month: 4, day: 8 },
+    //       repeats: [{ times: -1, cycle: 'day', step: 7 }],
+    //     });
 
-        eventManager.addEvent({
-          generatorId: MENSTRUATION_GENERATOR_ID,
-          id: 2,
-          start: { year: 2017, month: 5, day: 24 },
-          periodLength: 5,
-          cycleLength: 28,
-        });
+    //     eventManager.addEvent({
+    //       generatorId: MENSTRUATION_GENERATOR_ID,
+    //       id: 2,
+    //       start: { year: 2017, month: 5, day: 24 },
+    //       periodLength: 5,
+    //       cycleLength: 28,
+    //     });
 
-        const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
-          { year: 2017, month: 7, day: 1 });
-        console.log(events.map(e => [e.id, e.title, e.since.int(), e.till.int()]));
-        expect(events).to.have.lengthOf(29);
-      });
-    });
+    //     const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
+    //       { year: 2017, month: 7, day: 1 });
+    //     // console.log(events.map(e => [e.id, e.title, e.since.int(), e.till.int()]));
+    //     expect(events).to.have.lengthOf(29);
+    //   });
+    // });
   });
 });
