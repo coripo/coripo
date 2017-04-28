@@ -71,25 +71,7 @@ const EventManager = function EventManager(config = {}) {
     return result;
   };
 
-  const getMonth = (_year, _month) => {
-    const now = new Date();
-    const lnow = primaryAdapter.l10n({
-      year: now.getFullYear(),
-      month: now.getMonth() + 1,
-      day: now.getDate,
-    });
-
-    const year = _year || lnow.year;
-    const month = _month || lnow.month;
-
-    const monthLength = primaryAdapter.getMonthLength(year, month);
-    return this.getDateRange({ year, month, day: 1 }, { year, month, day: monthLength });
-  };
-
-  const getYear = year => this.getDateRange(
-    { year, month: 1, day: 1 }, { year, month: 12, day: 31 });
-
-  return { getAdaptersInfo, getMonthInfo, addEvent, getEventsIn, edit, remove, getMonth, getYear };
+  return { getAdaptersInfo, getMonthInfo, addEvent, getEventsIn, edit, remove };
 };
 
 exports.EventManager = EventManager;
