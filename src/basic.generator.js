@@ -79,6 +79,7 @@ const Generator = function Generator(dependencies) {
 
   const generate = (config) => {
     const event = new dependencies.Event({
+      type: id,
       title: config.title,
       note: config.note,
       since: new dependencies.OneDate(config.since, helper),
