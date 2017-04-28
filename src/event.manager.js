@@ -32,12 +32,12 @@ const EventManager = function EventManager(config = {}) {
   };
 
   const construct = () => {
-    adapters = ([GregorianAdapter]).concat((config.plugins || []).adapters || []);
+    adapters = ([GregorianAdapter]).concat((config.plugins || {}).adapters || []);
     adapters = adapters.map(Adapter => new Adapter());
     primaryAdapterId = config.primaryAdapterId || new GregorianAdapter().id;
     primaryAdapter = getAdapter(primaryAdapterId);
 
-    generators = ([BasicGenerator]).concat((config.plugins || []).generators || []);
+    generators = ([BasicGenerator]).concat((config.plugins || {}).generators || []);
     generators = generators.map((Generator) => {
       const dependencies = { Event, OneDate, getAdapter, primaryAdapterId };
       return new Generator(dependencies);

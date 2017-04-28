@@ -4,10 +4,12 @@ const Event = require('coripo-core').Event;
 const GregorianAdapter = require('coripo-core').GregorianAdapter;
 const JalaliAdapter = require('coripo-adapter-jalali').Adapter;
 const BasicGenerator = require('../src/basic.generator.js').Generator;
+const MenstruationGenerator = require('coripo-generator-menstruation').Generator;
 const EventManager = require('../src/event.manager.js').EventManager;
 
 describe('Event Manager', () => {
   const BASIC_GENERATOR_ID = new BasicGenerator(Event).id;
+  const MENSTRUATION_GENERATOR_ID = new MenstruationGenerator(Event).id;
   const GREGORIAN_ADAPTER_ID = new GregorianAdapter().id;
   const JALALI_ADAPTER_ID = new JalaliAdapter().id;
 
@@ -190,6 +192,58 @@ describe('Event Manager', () => {
         const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
           { year: 2017, month: 5, day: 1 });
         expect(events).to.have.lengthOf(3);
+      });
+      it('should return an array of 6 events', () => {
+        const eventManager = new EventManager({
+          plugins: { generators: [MenstruationGenerator] },
+        });
+
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          start: { year: 2017, month: 4, day: 4 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
+        const events = eventManager.getEventsIn({ year: 2017, month: 5, day: 1 },
+          { year: 2017, month: 6, day: 1 });
+        expect(events).to.have.lengthOf(6);
+      });
+    });
+    context('when has external overlap case', () => {
+      it.only('should return an array of 29 events', () => {
+        const eventManager = new EventManager({
+          plugins: { generators: [MenstruationGenerator] },
+        });
+
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          id: 1,
+          start: { year: 2017, month: 4, day: 4 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
+
+        eventManager.addEvent({
+          generatorId: BASIC_GENERATOR_ID,
+          id: 9,
+          title: 'Weekend',
+          since: { year: 2017, month: 4, day: 7 },
+          till: { year: 2017, month: 4, day: 8 },
+          repeats: [{ times: -1, cycle: 'day', step: 7 }],
+        });
+
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          id: 2,
+          start: { year: 2017, month: 5, day: 24 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
+
+        const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
+          { year: 2017, month: 7, day: 1 });
+        console.log(events.map(e => [e.id, e.title, e.since.int(), e.till.int()]));
+        expect(events).to.have.lengthOf(29);
       });
     });
   });
