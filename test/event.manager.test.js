@@ -65,7 +65,7 @@ describe('Event Manager', () => {
 
   });
 
-  describe('getDateRange', () => {
+  describe('getEventsIn()', () => {
     context('when all gregorian', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager();
@@ -158,6 +158,38 @@ describe('Event Manager', () => {
 
         expect(eventManager.getEventsIn({ year: 1396, month: 2, day: 3 },
           { year: 1396, month: 2, day: 5 })).to.have.lengthOf(2);
+      });
+    });
+    context('when has sequels and repeats', () => {
+      it('should return an array of 3 events', () => {
+        const eventManager = new EventManager();
+
+        eventManager.addEvent({
+          generatorId: BASIC_GENERATOR_ID,
+          title: 'overlap trim test',
+          since: { year: 2017, month: 4, day: 4 },
+          till: { year: 2017, month: 4, day: 6 },
+          repeats: [
+            { times: -1, cycle: 'day', step: 28 },
+          ],
+          internalOverlap: 'trim',
+          externalOverlap: 'trim',
+          sequels: [
+            {
+              title: 'trimmed stage',
+              since: { scale: 'day', offset: 4 },
+              till: { scale: 'day', offset: 8 },
+            },
+            {
+              title: 'remaining stage',
+              since: { scale: 'day', offset: 2 },
+              till: { scale: 'day', offset: 5 },
+            },
+          ],
+        });
+        const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
+          { year: 2017, month: 5, day: 1 });
+        expect(events).to.have.lengthOf(3);
       });
     });
   });
