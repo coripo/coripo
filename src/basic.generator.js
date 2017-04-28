@@ -1,5 +1,5 @@
 const Generator = function Generator(dependencies) {
-  const id = 'dariush-alipour.onecalendar.generator.basic';
+  const id = 'coripo.coripo.generator.basic';
   const name = 'Basic';
   const inputs = [
     {

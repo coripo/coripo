@@ -7,10 +7,8 @@ const EventManager = function EventManager(config = {}) {
   let primaryAdapterId;
   let primaryAdapter;
   let adapters = [];
-
   let generators = [];
-
-  let events = [];
+  let eventStore = [];
 
   const getAdaptersInfo = () => adapters.map(a => (
     { id: a.id, name: a.name, description: a.description }
@@ -50,8 +48,8 @@ const EventManager = function EventManager(config = {}) {
   const addEvent = (evt) => {
     const generator = getGenerator(evt.generatorId);
     const event = generator.generate(evt);
-    events = events.concat([event]);
-    return events;
+    eventStore = eventStore.concat([event]);
+    return eventStore;
   };
 
   const edit = () => {
@@ -59,16 +57,17 @@ const EventManager = function EventManager(config = {}) {
   };
 
   const remove = (eventId) => {
-    events = events.filter(evt => evt.id !== eventId);
-    return events;
+    eventStore = eventStore.filter(evt => evt.id !== eventId);
+    return eventStore;
   };
 
   const getEventsIn = (since, till) => {
     const helper = { getAdapter, primaryAdapterId };
-    const result = events.reduce((acc, val) => acc.concat(val.query(
+    let events = eventStore.reduce((acc, val) => acc.concat(val.query(
       new OneDate(since, helper),
       new OneDate(till, helper))), []);
-    return result;
+    events = events.sort((a, b) => a.since.int() - b.since.int());
+    return events;
   };
 
   return { getAdaptersInfo, getMonthInfo, addEvent, getEventsIn, edit, remove };
