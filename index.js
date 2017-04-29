@@ -36,4 +36,4 @@ const App = function App(config = {}) {
   };
 };
 
-exports.App = App;
+exports.CoripoApi = App;

@@ -1,7 +1,7 @@
 {
   "name": "coripo-api",
-  "version": "1.0.0",
-  "description": "a simple and flexible calendar api",
+  "version": "1.0.1",
+  "description": "a simple yet super-flexible calendar API",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec"
