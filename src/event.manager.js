@@ -24,11 +24,15 @@ const EventManager = function EventManager(config = {}) {
     return adapter;
   };
 
-  const getCurrentDate = () => (primaryAdapter.l10n({
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
-  }));
+  const getCurrentDate = () => {
+    const helper = { getAdapter, primaryAdapterId };
+    const date = primaryAdapter.l10n({
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate(),
+    });
+    return new OneDate(date, helper);
+  };
 
   const getMonthInfo = (year, month) => ({
     name: primaryAdapter.getMonthName(month),
