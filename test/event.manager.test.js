@@ -29,6 +29,15 @@ describe('Event Manager', () => {
     });
   });
 
+  describe('generateDate()', () => {
+    const eventManager = new EventManager();
+
+    it('should return a OneDate Object', () => {
+      const date = eventManager.generateDate({ year: 2017, month: 10, day: 23 });
+      expect(date.int()).to.equal(20171023);
+    });
+  });
+
   describe('getCurrentDate()', () => {
     const eventManager = new EventManager();
 

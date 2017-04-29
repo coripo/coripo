@@ -16,6 +16,7 @@ const App = function App(config = {}) {
     generators: config.generators,
   });
   const getGeneratorsInfo = () => eventManager.getGeneratorsInfo();
+  const generateDate = dateConfig => eventManager.generateDate(dateConfig);
   const getCurrentDate = () => eventManager.getCurrentDate();
   const addEvents = eventConfigs => eventConfigs.reduce((acc, cfg) => eventManager.addEvent(cfg));
   const getMonthInfo = (year, month) => eventManager.getMonthInfo(year, month);
@@ -28,6 +29,7 @@ const App = function App(config = {}) {
     getAdaptersInfo,
     setPrimaryAdapterId,
     getGeneratorsInfo,
+    generateDate,
     getCurrentDate,
     addEvents,
     getMonthInfo,

@@ -24,14 +24,18 @@ const EventManager = function EventManager(config = {}) {
     return adapter;
   };
 
-  const getCurrentDate = () => {
+  const generateDate = (dateConfig) => {
     const helper = { getAdapter, primaryAdapterId };
+    return new OneDate(dateConfig, helper);
+  };
+
+  const getCurrentDate = () => {
     const date = primaryAdapter.l10n({
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
       day: new Date().getDate(),
     });
-    return new OneDate(date, helper);
+    return generateDate(date);
   };
 
   const getMonthInfo = (year, month) => ({
@@ -167,9 +171,8 @@ const EventManager = function EventManager(config = {}) {
   }, []);
 
   const getEventsIn = (_since, _till) => {
-    const helper = { getAdapter, primaryAdapterId };
-    const since = new OneDate(_since, helper);
-    const till = new OneDate(_till, helper);
+    const since = generateDate(_since);
+    const till = generateDate(_till);
     const seriesArray = eventStore.reduce((acc, e) => {
       let sArray = acc;
       const eventsArray = e.query(since, till);
@@ -191,6 +194,7 @@ const EventManager = function EventManager(config = {}) {
   return {
     getAdaptersInfo,
     getGeneratorsInfo,
+    generateDate,
     getCurrentDate,
     getMonthInfo,
     addEvent,
