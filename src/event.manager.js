@@ -14,6 +14,10 @@ const EventManager = function EventManager(config = {}) {
     { id: a.id, name: a.name, description: a.description }
   ));
 
+  const getGeneratorsInfo = () => generators.map(g => (
+    { id: g.id, name: g.name, description: g.description, inputs: g.inputs }
+  ));
+
   const getAdapter = (adapterId) => {
     const adapter = adapters.find(a => a.id === (adapterId || primaryAdapterId));
     if (!adapter) throw new Error(`requested adapter '${adapterId}' not found.`);
@@ -176,6 +180,7 @@ const EventManager = function EventManager(config = {}) {
 
   return {
     getAdaptersInfo,
+    getGeneratorsInfo,
     getMonthInfo,
     addEvent,
     getEventsIn,

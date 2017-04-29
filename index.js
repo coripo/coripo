@@ -15,7 +15,7 @@ const App = function App(config = {}) {
     adapters: config.adapters,
     generators: config.generators,
   });
-
+  const getGeneratorsInfo = () => eventManager.getGeneratorsInfo();
   const addEvents = eventConfigs => eventConfigs.reduce((acc, cfg) => eventManager.addEvent(cfg));
   const getMonthInfo = (year, month) => eventManager.getMonthInfo(year, month);
   const getEventsIn = (since, till) => eventManager.getEventsIn(since, till);
@@ -26,6 +26,7 @@ const App = function App(config = {}) {
   return {
     getAdaptersInfo,
     setPrimaryAdapterId,
+    getGeneratorsInfo,
     addEvents,
     getMonthInfo,
     getEventsIn,

@@ -1,6 +1,7 @@
 const Generator = function Generator(dependencies) {
   const id = 'coripo.coripo.generator.basic';
   const name = 'Basic';
+  const description = 'Create custom events, simple or extremely sophisticated';
   const inputs = [
     {
       title: 'Basic',
@@ -92,7 +93,7 @@ const Generator = function Generator(dependencies) {
     return event;
   };
 
-  return { id, name, inputs, generate };
+  return { id, name, description, inputs, generate };
 };
 
 exports.Generator = Generator;

@@ -21,6 +21,14 @@ describe('Event Manager', () => {
     });
   });
 
+  describe('getGeneratorsInfo()', () => {
+    const eventManager = new EventManager();
+
+    it('should return an array', () => {
+      expect(eventManager.getGeneratorsInfo()).to.be.an('array');
+    });
+  });
+
   describe('getMonthInfo()', () => {
     const eventManager = new EventManager();
 

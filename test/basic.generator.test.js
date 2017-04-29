@@ -25,13 +25,19 @@ describe('Basic Generator', () => {
     });
   });
 
+  describe('description', () => {
+    it('should return a string', () => {
+      expect(basicGenerator.description).to.be.a('string');
+    });
+  });
+
   describe('inputs', () => {
     it('should return a non-empty array', () => {
       expect(basicGenerator.inputs).to.not.be.empty;
     });
   });
 
-  describe('generate', () => {
+  describe('generate()', () => {
     it('should return an event object', () => {
       const event = basicGenerator.generate({
         title: 'Thanksgiving at grandma\'s house',
