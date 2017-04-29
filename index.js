@@ -16,11 +16,23 @@ const App = function App(config = {}) {
     generators: config.generators,
   });
 
+  const addEvents = eventConfigs => eventConfigs.reduce((acc, cfg) => eventManager.addEvent(cfg));
   const getMonthInfo = (year, month) => eventManager.getMonthInfo(year, month);
   const getEventsIn = (since, till) => eventManager.getEventsIn(since, till);
-  const addEvent = (title, note, since, till) => eventManager.addEvent({ title, note, since, till });
+  const addEvent = eventConfig => eventManager.addEvent(eventConfig);
+  const removeEvent = eventId => eventManager.removeEvent(eventId);
+  const editEvent = eventConfig => eventManager.editEvent(eventConfig);
 
-  return { getAdaptersInfo, setPrimaryAdapterId, getMonthInfo, getEventsIn, addEvent };
+  return {
+    getAdaptersInfo,
+    setPrimaryAdapterId,
+    addEvents,
+    getMonthInfo,
+    getEventsIn,
+    addEvent,
+    removeEvent,
+    editEvent,
+  };
 };
 
 exports.App = App;

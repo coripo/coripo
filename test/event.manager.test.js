@@ -31,7 +31,7 @@ describe('Event Manager', () => {
     });
   });
 
-  describe('add', () => {
+  describe('addEvent()', () => {
     it('should increase events array size appropriately', () => {
       const eventManager = new EventManager();
 
@@ -57,14 +57,6 @@ describe('Event Manager', () => {
         till: { year: 2017, month: 9, day: 10, adapterId: GREGORIAN_ADAPTER_ID },
       })).to.have.lengthOf(3);
     });
-  });
-
-  describe('edit', () => {
-
-  });
-
-  describe('remove', () => {
-
   });
 
   describe('getEventsIn()', () => {
@@ -268,6 +260,46 @@ describe('Event Manager', () => {
           && e.till.int() === 20170512)).to.have.lengthOf(1);
         expect(events).to.have.lengthOf(12);
       });
+    });
+  });
+
+  describe('removeEvent()', () => {
+    it('should return an array with length of 1', () => {
+      const eventManager = new EventManager({});
+
+      eventManager.addEvent({
+        generatorId: BASIC_GENERATOR_ID,
+        id: 1,
+        since: { year: 2017, month: 4, day: 3 },
+        till: { year: 2017, month: 4, day: 5 },
+      });
+
+      eventManager.addEvent({
+        generatorId: BASIC_GENERATOR_ID,
+        id: 2,
+        since: { year: 2017, month: 4, day: 4 },
+        till: { year: 2017, month: 4, day: 5 },
+      });
+      expect(eventManager.removeEvent(2)).to.have.lengthOf(1);
+    });
+  });
+
+  describe('editEvent()', () => {
+    it('should return an array with length of 1 with new values', () => {
+      const eventManager = new EventManager({});
+      const eventConfig = {
+        generatorId: BASIC_GENERATOR_ID,
+        id: 2,
+        since: { year: 2017, month: 4, day: 4 },
+        till: { year: 2017, month: 4, day: 5 },
+      };
+      const oldStore = eventManager.addEvent(eventConfig);
+      const sampleString = 'The forgotten title';
+      eventConfig.title = sampleString;
+      const newStore = eventManager.editEvent(eventConfig);
+      expect(newStore).to.have.lengthOf(1);
+      expect(newStore).to.not.deep.equal(oldStore);
+      expect(newStore[0].title).to.equal(sampleString);
     });
   });
 });

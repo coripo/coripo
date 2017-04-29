@@ -45,20 +45,21 @@ const EventManager = function EventManager(config = {}) {
   };
   construct();
 
-  const addEvent = (evt) => {
-    const generator = getGenerator(evt.generatorId);
-    const event = generator.generate(evt);
+  const addEvent = (eventConfig) => {
+    const generator = getGenerator(eventConfig.generatorId);
+    const event = generator.generate(eventConfig);
     eventStore = eventStore.concat([event]);
     return eventStore;
   };
 
-  const edit = () => {
-
-  };
-
-  const remove = (eventId) => {
+  const removeEvent = (eventId) => {
     eventStore = eventStore.filter(evt => evt.id !== eventId);
     return eventStore;
+  };
+
+  const editEvent = (eventConfig) => {
+    removeEvent(eventConfig.id);
+    return addEvent(eventConfig);
   };
 
   const getEventsRange = evts => evts.reduce((range, e) => ({
@@ -173,7 +174,14 @@ const EventManager = function EventManager(config = {}) {
     return events;
   };
 
-  return { getAdaptersInfo, getMonthInfo, addEvent, getEventsIn, edit, remove };
+  return {
+    getAdaptersInfo,
+    getMonthInfo,
+    addEvent,
+    getEventsIn,
+    editEvent,
+    removeEvent,
+  };
 };
 
 exports.EventManager = EventManager;
