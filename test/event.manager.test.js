@@ -209,42 +209,65 @@ describe('Event Manager', () => {
         expect(events).to.have.lengthOf(6);
       });
     });
-    // context('when has external overlap case', () => {
-    //   it.only('should return an array of 29 events', () => {
-    //     const eventManager = new EventManager({
-    //       plugins: { generators: [MenstruationGenerator] },
-    //     });
+    context('when has external overlap case', () => {
+      it('should return an array of 8 events including Peak Ovulation 20170413-20170415', () => {
+        const eventManager = new EventManager({
+          plugins: { generators: [MenstruationGenerator] },
+        });
 
-    //     eventManager.addEvent({
-    //       generatorId: MENSTRUATION_GENERATOR_ID,
-    //       id: 1,
-    //       start: { year: 2017, month: 4, day: 4 },
-    //       periodLength: 5,
-    //       cycleLength: 28,
-    //     });
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          id: 1,
+          start: { year: 2017, month: 4, day: 3 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
 
-    //     eventManager.addEvent({
-    //       generatorId: BASIC_GENERATOR_ID,
-    //       id: 9,
-    //       title: 'Weekend',
-    //       since: { year: 2017, month: 4, day: 7 },
-    //       till: { year: 2017, month: 4, day: 8 },
-    //       repeats: [{ times: -1, cycle: 'day', step: 7 }],
-    //     });
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          id: 2,
+          start: { year: 2017, month: 4, day: 18 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
 
-    //     eventManager.addEvent({
-    //       generatorId: MENSTRUATION_GENERATOR_ID,
-    //       id: 2,
-    //       start: { year: 2017, month: 5, day: 24 },
-    //       periodLength: 5,
-    //       cycleLength: 28,
-    //     });
+        const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
+          { year: 2017, month: 4, day: 30 });
+        expect(events.filter(e => e.title === 'Peak Ovulation'
+          && e.since.int() === 20170413
+          && e.till.int() === 20170415)).to.have.lengthOf(1);
+        expect(events).to.have.lengthOf(8);
+      });
+    });
+    context('when has external overlap case', () => {
+      it('should return an array of 8 events including Peak Ovulation 20170511-20170512', () => {
+        const eventManager = new EventManager({
+          plugins: { generators: [MenstruationGenerator] },
+        });
 
-    //     const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
-    //       { year: 2017, month: 7, day: 1 });
-    //     // console.log(events.map(e => [e.id, e.title, e.since.int(), e.till.int()]));
-    //     expect(events).to.have.lengthOf(29);
-    //   });
-    // });
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          id: 1,
+          start: { year: 2017, month: 4, day: 3 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
+
+        eventManager.addEvent({
+          generatorId: MENSTRUATION_GENERATOR_ID,
+          id: 2,
+          start: { year: 2017, month: 5, day: 15 },
+          periodLength: 5,
+          cycleLength: 28,
+        });
+
+        const events = eventManager.getEventsIn({ year: 2017, month: 4, day: 1 },
+          { year: 2017, month: 5, day: 30 });
+        expect(events.filter(e => e.title === 'Peak Ovulation'
+          && e.since.int() === 20170511
+          && e.till.int() === 20170512)).to.have.lengthOf(1);
+        expect(events).to.have.lengthOf(12);
+      });
+    });
   });
 });
