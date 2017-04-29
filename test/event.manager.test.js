@@ -29,6 +29,18 @@ describe('Event Manager', () => {
     });
   });
 
+  describe('getCurrentDate()', () => {
+    const eventManager = new EventManager();
+
+    it('should return an object with year, month and day property', () => {
+      const date = eventManager.getCurrentDate();
+      expect(date).to.be.an('object');
+      expect(date.year).to.be.a('number');
+      expect(date.month).to.be.a('number');
+      expect(date.day).to.be.a('number');
+    });
+  });
+
   describe('getMonthInfo()', () => {
     const eventManager = new EventManager();
 
