@@ -183,6 +183,26 @@ describe('Event Manager', () => {
           { year: 1396, month: 2, day: 5 })).to.have.lengthOf(2);
       });
     });
+    context('when handling leap in repeats from various adapters', () => {
+      it('should return an array each month 8 and day 26', () => {
+        const eventManager = new EventManager({
+          primaryAdapterId: JALALI_ADAPTER_ID,
+          plugins: { adapters: [JalaliAdapter] },
+        });
+
+        eventManager.addEvent({
+          generatorId: BASIC_GENERATOR_ID,
+          title: 'Jalali Birthday',
+          since: { year: 1371, month: 8, day: 26, adapterId: JALALI_ADAPTER_ID },
+          repeats: [{ times: -1, cycle: 'year', step: 1 }],
+        });
+
+        const since = { year: 1371, month: 1, day: 1 };
+        const till = { year: 1400, month: 1, day: 1 };
+        const evts = eventManager.getEventsIn(since, till);
+        evts.map(evt => expect(evt.since.month).to.equal(8) && expect(evt.since.day).to.equal(26));
+      });
+    });
     context('when has sequels and repeats', () => {
       it('should return an array of 3 events', () => {
         const eventManager = new EventManager();
