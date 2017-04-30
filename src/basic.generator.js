@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 const Generator = function Generator(dependencies) {
   const id = 'coripo.coripo.generator.basic';
   const name = 'Basic';
@@ -78,7 +79,7 @@ const Generator = function Generator(dependencies) {
     primaryAdapterId: dependencies.primaryAdapterId,
   };
 
-  const generate = (config) => {
+  const generate = function generate(config) {
     const event = new dependencies.Event({
       id: config.id,
       generatorId: id,
@@ -93,7 +94,7 @@ const Generator = function Generator(dependencies) {
     return event;
   };
 
-  return { id, name, description, inputs, generate };
+  return { id: id, name: name, description: description, inputs: inputs, generate: generate };
 };
 
 exports.Generator = Generator;
