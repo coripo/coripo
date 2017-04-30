@@ -158,7 +158,7 @@ const EventManager = function EventManager(config = {}) {
                 till: slave.till,
               })).query(_since, _till)[0];
             }
-            collision = slave.collides(rangeSince, rangeTill);
+            collision = slave ? slave.collides(rangeSince, rangeTill) : false;
           }
           return slave;
         }).filter(evt => evt.till.int() - evt.since.int() >= 0);
