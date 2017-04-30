@@ -1,7 +1,8 @@
 /* eslint-disable object-shorthand */
 const EventManager = require('./src/event.manager.js').EventManager;
 
-const App = function App(config = {}) {
+const App = function App(_config) {
+  const config = _config || {};
   const eventManager = new EventManager({
     primaryAdapterId: config.primaryAdapterId,
     plugins: {
