@@ -161,7 +161,7 @@ const EventManager = function EventManager(config = {}) {
             collision = slave ? slave.collides(rangeSince, rangeTill) : false;
           }
           return slave;
-        }).filter(evt => evt.till.int() - evt.since.int() >= 0);
+        }).filter(evt => evt && evt.till.int() - evt.since.int() >= 0);
         item.events = evts.concat(trimmedSlaves);
         return sa.concat(item);
       }, []);
