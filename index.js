@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable func-names */
 /* eslint-disable object-shorthand */
 const EventManager = require('./src/event.manager.js').EventManager;
 
@@ -36,7 +38,7 @@ const App = function App(_config) {
   };
 
   const addEvents = function addEvents(eventConfigs) {
-    return eventConfigs.reduce((acc, cfg) => eventManager.addEvent(cfg));
+    return eventConfigs.reduce(function (acc, cfg) { return eventManager.addEvent(cfg); }, {});
   };
 
   const getMonthInfo = function getMonthInfo(year, month) {
