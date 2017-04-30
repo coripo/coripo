@@ -1,9 +1,15 @@
 {
   "name": "coripo-api",
-  "version": "1.0.8",
+  "version": "1.0.15",
   "description": "a simple yet super-flexible calendar API",
   "main": "index.js",
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
   "scripts": {
+    "build": "babel src -d lib --source-maps",
     "test": "mocha -R spec"
   },
   "repository": {
@@ -20,6 +26,8 @@
   },
   "homepage": "https://github.com/coripo/coripo-api#readme",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
     "chai": "^3.5.0",
     "coripo-adapter-jalali": "^1.0.8",
     "coripo-generator-menstruation": "^1.0.5",
