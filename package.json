@@ -1,6 +1,6 @@
 {
   "name": "coripo-api",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "a simple yet super-flexible calendar API",
   "main": "index.js",
   "scripts": {

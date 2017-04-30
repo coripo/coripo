@@ -7,7 +7,8 @@ const Event = require('coripo-core').Event;
 const OneDate = require('coripo-core').OneDate;
 const BasicGenerator = require('./basic.generator.js').Generator;
 
-const EventManager = function EventManager(config = {}) {
+const EventManager = function EventManager(_config) {
+  const config = _config || {};
   let primaryAdapterId;
   let primaryAdapter;
   let adapters = [];
