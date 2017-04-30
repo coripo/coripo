@@ -80,11 +80,6 @@ const EventManager = function EventManager(config = {}) {
     return addEvent(eventConfig);
   };
 
-  const getEventsRange = evts => evts.reduce((range, e) => ({
-    since: e.since.int() < range.since.int() ? e.since : range.since,
-    till: e.till.int() > range.till.int() ? e.till : range.till,
-  }), { since: evts[0].since, till: evts[0].till });
-
   const handleOverlaps = (seriesArray, _since, _till) => seriesArray.reduce((sArray, series) => {
     if (series.overlap.includes('allow')) return sArray.concat([series]);
 
@@ -143,7 +138,7 @@ const EventManager = function EventManager(config = {}) {
                 color: slave.color,
                 since: slave.since,
                 till: rangeSince.offsetDay(-1),
-              })).query(_since, _till)[0];
+              })).query(_since, _till, 'event[]')[0];
             } else if (collision.includes('l')) {
               slave = (new Event({
                 id: slave.id,
@@ -156,7 +151,7 @@ const EventManager = function EventManager(config = {}) {
                 color: slave.color,
                 since: rangeTill.offsetDay(1),
                 till: slave.till,
-              })).query(_since, _till)[0];
+              })).query(_since, _till, 'event[]')[0];
             }
             collision = slave ? slave.collides(rangeSince, rangeTill) : false;
           }
@@ -174,17 +169,12 @@ const EventManager = function EventManager(config = {}) {
     const since = generateDate(_since);
     const till = generateDate(_till);
     const seriesArray = eventStore.reduce((acc, e) => {
-      let sArray = acc;
-      const eventsArray = e.query(since, till);
-      if (!eventsArray.length) return sArray;
-      sArray = sArray.concat([{
-        generatorId: eventsArray[0].generatorId,
-        overlap: eventsArray[0].overlap,
-        events: eventsArray,
-        range: getEventsRange(eventsArray),
-      }]);
-      sArray = handleOverlaps(sArray, since, till);
-      return sArray;
+      let sa = acc;
+      const series = e.query(since, till);
+      if (!series.events.length) return sa;
+      sa = sa.concat([series]);
+      sa = handleOverlaps(sa, since, till);
+      return sa;
     }, []);
     let events = seriesArray.reduce((evts, s) => evts.concat(s.events), []);
     events = events.sort((a, b) => a.since.int() - b.since.int());
