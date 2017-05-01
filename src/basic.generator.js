@@ -1,73 +1,120 @@
-const Generator = function Generator(dependencies) {
+const i18next = require('i18next');
+const locales = require('../locales/index.js');
+
+const Generator = function Generator(dependencies, config = {}) {
+  i18next.init({
+    lng: config.locale || 'en',
+    fallbackLng: 'en',
+    initImmediate: false,
+    resources: locales,
+  });
   const id = 'coripo.coripo.generator.basic';
-  const name = 'Basic';
-  const description = 'Create custom events, simple or extremely sophisticated';
+  const name = i18next.t('basic-generator.name');
+  const description = i18next.t('basic-generator.description');
   const inputs = [
     {
-      title: 'Basic',
+      title: i18next.t('basic-generator.field-group.basic.title'),
       fields: [
         {
           id: 'title',
-          label: 'Title',
+          label: i18next.t('basic-generator.field-group.basic.field.title.label'),
           type: 'text',
         },
         {
           id: 'note',
-          label: 'Note',
+          label: i18next.t('basic-generator.field-group.basic.field.note.label'),
           type: 'wysiwyg',
         },
         {
           id: 'since',
-          label: 'Since',
+          label: i18next.t('basic-generator.field-group.basic.field.since.label'),
           type: 'date',
-          comment: 'Choose the beginning date',
+          comment: i18next.t('basic-generator.field-group.basic.field.since.comment'),
         },
         {
           id: 'till',
-          label: 'Till',
+          label: i18next.t('basic-generator.field-group.basic.field.till.label'),
           type: 'date',
-          comment: 'Choose the last day',
+          comment: i18next.t('basic-generator.field-group.basic.field.till.comment'),
           optional: true,
         },
       ],
     },
     {
-      title: 'Repeats',
+      title: i18next.t('basic-generator.field-group.repeats.title'),
       fields: [
         {
           id: 'repeats',
-          label: 'Repeats',
+          label: i18next.t('basic-generator.field-group.repeats.field.repeats.label'),
           type: 'repeats',
           optional: true,
         },
       ],
     },
     {
-      title: 'Sequels',
+      title: i18next.t('basic-generator.field-group.sequels.title'),
       fields: [
         {
           id: 'sequels',
-          label: 'Sequels',
+          label: i18next.t('basic-generator.field-group.sequels.field.sequels.label'),
           type: 'sequels',
           optional: true,
         },
       ],
     },
     {
-      title: 'Overlap Policy',
+      title: i18next.t('basic-generator.field-group.overlap-policy.title'),
       fields: [
         {
           id: 'internalOverlap',
-          label: 'Internal Overlaps Policy',
-          type: 'overlapRule',
-          comment: 'Internal overlaps can happen via sequels',
+          label: i18next.t('basic-generator.field-group.overlap-policy.field.internal.label'),
+          type: 'select',
+          data: {
+            items: [
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.internal.data.allow'),
+                value: 'allow',
+              },
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.internal.data.remove'),
+                value: 'remove',
+              },
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.internal.data.trim'),
+                value: 'trim',
+              },
+            ],
+          },
           optional: true,
         },
         {
           id: 'externalOverlap',
-          label: 'External Overlaps Policy',
-          type: 'overlapRule',
-          comment: 'External overlaps can happen via sequels and repeats',
+          label: i18next.t('basic-generator.field-group.overlap-policy.field.external.label'),
+          type: 'select',
+          data: {
+            items: [
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.allow'),
+                value: 'allow',
+              },
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.remove'),
+                value: 'remove',
+              },
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.remove-forever'),
+                value: 'remove-forever',
+              },
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.trim'),
+                value: 'trim',
+              },
+              {
+                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.trim-forever'),
+                value: 'trim-forever',
+              },
+            ],
+          },
           optional: true,
         },
       ],
@@ -78,22 +125,31 @@ const Generator = function Generator(dependencies) {
     primaryAdapterId: dependencies.primaryAdapterId,
   };
 
-  const generate = (config) => {
+  const generate = (cfg) => {
     const event = new dependencies.Event({
-      id: config.id,
+      id: cfg.id,
       generatorId: id,
-      title: config.title,
-      note: config.note,
-      since: new dependencies.OneDate(config.since, helper),
-      till: new dependencies.OneDate((config.till || config.since), helper),
-      repeats: config.repeats,
-      sequels: config.sequels,
-      overlap: { internal: config.internalOverlap, external: config.externalOverlap },
+      title: cfg.title,
+      note: cfg.note,
+      since: new dependencies.OneDate(cfg.since, helper),
+      till: new dependencies.OneDate((cfg.till || cfg.since), helper),
+      repeats: cfg.repeats,
+      sequels: cfg.sequels,
+      overlap: {
+        internal: cfg.internalOverlap,
+        external: cfg.externalOverlap,
+      },
     });
     return event;
   };
 
-  return { id, name, description, inputs, generate };
+  return {
+    id,
+    name,
+    description,
+    inputs,
+    generate,
+  };
 };
 
 exports.Generator = Generator;

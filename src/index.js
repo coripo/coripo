@@ -7,6 +7,7 @@ const App = function App(config = {}) {
       adapters: config.adapters || [],
       generators: config.generators || [],
     },
+    locale: config.locale || 'en',
   });
 
   const getAdaptersInfo = () => eventManager.getAdaptersInfo();

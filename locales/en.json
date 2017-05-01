@@ -1,0 +1,70 @@
+{
+  "translation": {
+    "basic-generator": {
+      "name": "Basic",
+      "description": "Create custom events, simple or extremely sophisticated",
+      "field-group": {
+        "basic": {
+          "title": "Basic",
+          "field": {
+            "title": {
+              "label": "Title"
+            },
+            "note": {
+              "label": "Note"
+            },
+            "since": {
+              "label": "Since",
+              "comment": "Choose the beginning date"
+            },
+            "till": {
+              "label": "Till",
+              "comment": "Choose the last day"
+            }
+          }
+        },
+        "repeats": {
+          "title": "Repeats",
+          "field": {
+            "repeats": {
+              "label": "Repeats"
+            }
+          }
+        },
+        "sequels": {
+          "title": "Sequels",
+          "field": {
+            "sequels": {
+              "label": "Sequels"
+            }
+          }
+        },
+        "overlap-policy": {
+          "title": "Overlap Policy",
+          "field": {
+            "internal": {
+              "label": "Internal overlaps policy",
+              "data": {
+                "allow": "Permitted",
+                "remove": "Remove",
+                "trim": "Trim"
+              }
+            },
+            "external": {
+              "label": "External overlaps policy",
+              "data": {
+                "allow": "Permitted",
+                "remove": "Remove",
+                "remove-forever": "Remove now on",
+                "trim": "Trim",
+                "trim-forever": "Trim now on"
+              }
+            }
+          }
+        }
+      }
+    },
+    "event-manager": {
+    }
+  }
+}

@@ -50,15 +50,16 @@ const EventManager = function EventManager(config = {}) {
   };
 
   const construct = () => {
+    const locale = config.locale || 'en';
     adapters = ([GregorianAdapter]).concat((config.plugins || {}).adapters || []);
     adapters = adapters.map(Adapter => new Adapter());
-    primaryAdapterId = config.primaryAdapterId || new GregorianAdapter().id;
+    primaryAdapterId = config.primaryAdapterId || new GregorianAdapter({ locale }).id;
     primaryAdapter = getAdapter(primaryAdapterId);
 
     generators = ([BasicGenerator]).concat((config.plugins || {}).generators || []);
     generators = generators.map((Generator) => {
       const dependencies = { Event, OneDate, getAdapter, primaryAdapterId };
-      return new Generator(dependencies);
+      return new Generator(dependencies, { locale });
     });
   };
   construct();

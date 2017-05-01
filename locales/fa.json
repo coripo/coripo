@@ -1,0 +1,70 @@
+{
+  "translation": {
+    "basic-generator": {
+      "name": "اصلی",
+      "description": "رویداد های سفارشی بسازید، ساده یا شدیدا پیچیده.",
+      "field-group": {
+        "basic": {
+          "title": "اصلی",
+          "field": {
+            "title": {
+              "label": "عنوان"
+            },
+            "note": {
+              "label": "یادداشت"
+            },
+            "since": {
+              "label": "از زمان",
+              "comment": "زمان شروع را انتخاب کنید"
+            },
+            "till": {
+              "label": "تا زمان",
+              "comment": "آخرین روز رویداد را انتخاب کنید"
+            }
+          }
+        },
+        "repeats": {
+          "title": "تکرار ها",
+          "field": {
+            "repeats": {
+              "label": "تکرار ها"
+            }
+          }
+        },
+        "sequels": {
+          "title": "عواقب",
+          "field": {
+            "sequels": {
+              "label": "عواقب"
+            }
+          }
+        },
+        "overlap-policy": {
+          "title": "سیاست همپوشانی",
+          "field": {
+            "internal": {
+              "label": "سیاست همپوشانی های داخلی",
+              "data": {
+                "allow": "مجاز",
+                "remove": "حذف",
+                "trim": "چیدن"
+              }
+            },
+            "external": {
+              "label": "سیاست همپوشانی های خارجی",
+              "data": {
+                "allow": "مجاز",
+                "remove": "حذف",
+                "remove-forever": "حذف از این پس",
+                "trim": "چیدن",
+                "trim-forever": "چیدن از این پس"
+              }
+            }
+          }
+        }
+      }
+    },
+    "event-manager": {
+    }
+  }
+}
