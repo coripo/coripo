@@ -81,11 +81,11 @@ const EventManager = function EventManager(config = {}) {
   };
 
   const handleOverlaps = (seriesArray, _since, _till) => seriesArray.reduce((sArray, series) => {
-    if (series.overlap.includes('allow')) return sArray.concat([series]);
+    if (series.overlap.external.includes('allow')) return sArray.concat([series]);
 
     const conflicts = sArray.filter((s) => {
       const sameGenerator = s.generatorId === series.generatorId;
-      const sameOverlapRule = s.overlap === series.overlap;
+      const sameOverlapRule = s.overlap.external === series.overlap.external;
       return sameGenerator && sameOverlapRule;
     }).concat([series])
       .sort((a, b) => b.range.since.int() - a.range.since.int());
@@ -95,16 +95,16 @@ const EventManager = function EventManager(config = {}) {
 
     const items = sArray.filter((s) => {
       const sameGenerator = s.generatorId === series.generatorId;
-      const sameOverlapRule = s.overlap === series.overlap;
+      const sameOverlapRule = s.overlap.external === series.overlap.external;
       return !(sameGenerator && sameOverlapRule);
     });
 
-    const forever = series.overlap.includes('forever');
+    const forever = series.overlap.external.includes('forever');
 
     const rangeSince = master.range.since;
     const rangeTill = forever ? _till.offsetYear(1) : master.range.till;
 
-    if (series.overlap.includes('remove')) {
+    if (series.overlap.external.includes('remove')) {
       const slaves = conflicts.slice(1).reduce((sa, s) => {
         const item = s;
         item.events = s.events
@@ -113,7 +113,7 @@ const EventManager = function EventManager(config = {}) {
       }, []);
       return items.concat([master]).concat(slaves);
     }
-    if (series.overlap.includes('trim')) {
+    if (series.overlap.external.includes('trim')) {
       const slaves = conflicts.slice(1).reduce((sa, s) => {
         const item = s;
         const slaveEvents = s.events
