@@ -8,79 +8,83 @@ const Generator = function Generator(dependencies, config = {}) {
     initImmediate: false,
     resources: locales,
   });
+  const trl = (key) => {
+    i18next.store.data = locales;
+    return i18next.t(key);
+  };
   const id = 'coripo.coripo.generator.basic';
-  const name = i18next.t('basic-generator.name');
-  const description = i18next.t('basic-generator.description');
+  const name = trl('basic-generator.name');
+  const description = trl('basic-generator.description');
   const inputs = [
     {
-      title: i18next.t('basic-generator.field-group.basic.title'),
+      title: trl('basic-generator.field-group.basic.title'),
       fields: [
         {
           id: 'title',
-          label: i18next.t('basic-generator.field-group.basic.field.title.label'),
+          label: trl('basic-generator.field-group.basic.field.title.label'),
           type: 'text',
         },
         {
           id: 'note',
-          label: i18next.t('basic-generator.field-group.basic.field.note.label'),
+          label: trl('basic-generator.field-group.basic.field.note.label'),
           type: 'wysiwyg',
         },
         {
           id: 'since',
-          label: i18next.t('basic-generator.field-group.basic.field.since.label'),
+          label: trl('basic-generator.field-group.basic.field.since.label'),
           type: 'date',
-          comment: i18next.t('basic-generator.field-group.basic.field.since.comment'),
+          comment: trl('basic-generator.field-group.basic.field.since.comment'),
         },
         {
           id: 'till',
-          label: i18next.t('basic-generator.field-group.basic.field.till.label'),
+          label: trl('basic-generator.field-group.basic.field.till.label'),
           type: 'date',
-          comment: i18next.t('basic-generator.field-group.basic.field.till.comment'),
+          comment: trl('basic-generator.field-group.basic.field.till.comment'),
           optional: true,
         },
       ],
     },
     {
-      title: i18next.t('basic-generator.field-group.repeats.title'),
+      title: trl('basic-generator.field-group.repeats.title'),
       fields: [
         {
           id: 'repeats',
-          label: i18next.t('basic-generator.field-group.repeats.field.repeats.label'),
+          label: trl('basic-generator.field-group.repeats.field.repeats.label'),
           type: 'repeats',
           optional: true,
         },
       ],
     },
     {
-      title: i18next.t('basic-generator.field-group.sequels.title'),
+      title: trl('basic-generator.field-group.sequels.title'),
       fields: [
         {
           id: 'sequels',
-          label: i18next.t('basic-generator.field-group.sequels.field.sequels.label'),
+          label: trl('basic-generator.field-group.sequels.field.sequels.label'),
           type: 'sequels',
           optional: true,
         },
       ],
     },
     {
-      title: i18next.t('basic-generator.field-group.overlap-policy.title'),
+      title: trl('basic-generator.field-group.overlap-policy.title'),
       fields: [
         {
           id: 'internalOverlap',
-          label: i18next.t('basic-generator.field-group.overlap-policy.field.internal.label'),
+          label: trl('basic-generator.field-group.overlap-policy.field.internal.label'),
           type: 'select',
           data: {
             items: [
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.internal.data.allow'),
+                title: trl('basic-generator.field-group.overlap-policy.field.internal.data.allow'),
                 value: 'allow',
               },
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.internal.data.remove'),
+                title: trl('basic-generator.field-group.overlap-policy.field.internal.data.remove'),
                 value: 'remove',
               },
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.internal.data.trim'),
+                title: trl('basic-generator.field-group.overlap-policy.field.internal.data.trim'),
                 value: 'trim',
               },
             ],
@@ -89,28 +93,28 @@ const Generator = function Generator(dependencies, config = {}) {
         },
         {
           id: 'externalOverlap',
-          label: i18next.t('basic-generator.field-group.overlap-policy.field.external.label'),
+          label: trl('basic-generator.field-group.overlap-policy.field.external.label'),
           type: 'select',
           data: {
             items: [
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.allow'),
+                title: trl('basic-generator.field-group.overlap-policy.field.external.data.allow'),
                 value: 'allow',
               },
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.remove'),
+                title: trl('basic-generator.field-group.overlap-policy.field.external.data.remove'),
                 value: 'remove',
               },
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.remove-forever'),
+                title: trl('basic-generator.field-group.overlap-policy.field.external.data.remove-forever'),
                 value: 'remove-forever',
               },
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.trim'),
+                title: trl('basic-generator.field-group.overlap-policy.field.external.data.trim'),
                 value: 'trim',
               },
               {
-                title: i18next.t('basic-generator.field-group.overlap-policy.field.external.data.trim-forever'),
+                title: trl('basic-generator.field-group.overlap-policy.field.external.data.trim-forever'),
                 value: 'trim-forever',
               },
             ],
