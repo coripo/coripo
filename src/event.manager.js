@@ -128,33 +128,13 @@ const EventManager = function EventManager(config = {}) {
           let collision = slave.collides(rangeSince, rangeTill);
           while (collision) {
             if (collision.includes('r')) {
-              slave = (new Event({
-                id: slave.id,
-                generatorId: slave.generatorId,
-                virtual: slave.virtual,
-                repeated: slave.repeated,
-                overlap: slave.overlap,
-                priority: slave.priority,
-                title: slave.title,
-                note: slave.note,
-                color: slave.color,
-                since: slave.since,
+              slave = (new Event(Object.assign({}, slave, {
                 till: rangeSince.offsetDay(-1),
-              })).query(_since, _till, 'event[]')[0];
+              }))).query(_since, _till, 'event[]')[0];
             } else if (collision.includes('l')) {
-              slave = (new Event({
-                id: slave.id,
-                generatorId: slave.generatorId,
-                virtual: slave.virtual,
-                repeated: slave.repeated,
-                overlap: slave.overlap,
-                priority: slave.priority,
-                title: slave.title,
-                note: slave.note,
-                color: slave.color,
+              slave = (new Event(Object.assign({}, slave, {
                 since: rangeTill.offsetDay(1),
-                till: slave.till,
-              })).query(_since, _till, 'event[]')[0];
+              }))).query(_since, _till, 'event[]')[0];
             }
             collision = slave ? slave.collides(rangeSince, rangeTill) : false;
           }
