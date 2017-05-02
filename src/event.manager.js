@@ -14,6 +14,7 @@ const EventManager = function EventManager(config = {}) {
   });
   const trl = (key) => {
     i18next.store.data = locales;
+    i18next.changeLanguage(config.locale || 'en');
     return i18next.t(key);
   };
   let primaryAdapterId;
