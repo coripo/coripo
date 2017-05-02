@@ -137,6 +137,8 @@ const Generator = function Generator(dependencies, config = {}) {
       note: cfg.note,
       since: new dependencies.OneDate(cfg.since, helper),
       till: new dependencies.OneDate((cfg.till || cfg.since), helper),
+      categoryId: cfg.categoryId,
+      tags: cfg.tags,
       repeats: cfg.repeats,
       sequels: cfg.sequels,
       overlap: {

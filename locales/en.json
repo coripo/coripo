@@ -65,6 +65,21 @@
       }
     },
     "event-manager": {
+      "common-generator": {
+        "field-group": {
+          "organization": {
+            "title": "Organization",
+            "field": {
+              "category-id": {
+                "label": "Category"
+              },
+              "tags": {
+                "label": "Tags"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

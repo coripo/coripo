@@ -1,9 +1,21 @@
 const GregorianAdapter = require('coripo-core').GregorianAdapter;
 const Event = require('coripo-core').Event;
 const OneDate = require('coripo-core').OneDate;
+const i18next = require('i18next');
 const BasicGenerator = require('./basic.generator.js').Generator;
+const locales = require('../locales/index.js');
 
 const EventManager = function EventManager(config = {}) {
+  i18next.init({
+    lng: config.locale || 'en',
+    fallbackLng: 'en',
+    initImmediate: false,
+    resources: locales,
+  });
+  const trl = (key) => {
+    i18next.store.data = locales;
+    return i18next.t(key);
+  };
   let primaryAdapterId;
   let primaryAdapter;
   let adapters = [];
@@ -15,7 +27,30 @@ const EventManager = function EventManager(config = {}) {
   ));
 
   const getGeneratorsInfo = () => generators.map(g => (
-    { id: g.id, name: g.name, description: g.description, inputs: g.inputs }
+    {
+      id: g.id,
+      name: g.name,
+      description: g.description,
+      inputs: g.inputs.concat([
+        {
+          title: trl('event-manager.common-generator.field-group.organization.title'),
+          fields: [
+            {
+              id: 'categoryId',
+              label: trl('event-manager.common-generator.field-group.organization.field.category-id.label'),
+              type: 'category',
+              optional: true,
+            },
+            {
+              id: 'tags',
+              label: trl('event-manager.common-generator.field-group.organization.field.tags.label'),
+              type: 'tags',
+              optional: true,
+            },
+          ],
+        },
+      ]),
+    }
   ));
 
   const getAdapter = (adapterId) => {
