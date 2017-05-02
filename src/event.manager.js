@@ -87,7 +87,7 @@ const EventManager = function EventManager(config = {}) {
   const construct = () => {
     const locale = config.locale || 'en';
     adapters = ([GregorianAdapter]).concat((config.plugins || {}).adapters || []);
-    adapters = adapters.map(Adapter => new Adapter());
+    adapters = adapters.map(Adapter => new Adapter({ locale }));
     primaryAdapterId = config.primaryAdapterId || new GregorianAdapter({ locale }).id;
     primaryAdapter = getAdapter(primaryAdapterId);
 
