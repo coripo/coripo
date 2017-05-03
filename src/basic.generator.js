@@ -131,6 +131,7 @@ const Generator = function Generator(dependencies, config = {}) {
 
   const generate = (cfg) => {
     const event = new dependencies.Event({
+      dna: cfg,
       id: cfg.id,
       generatorId: id,
       title: cfg.title,

@@ -1,7 +1,7 @@
 {
   "translation": {
     "basic-generator": {
-      "name": "اصلی",
+      "name": "عمومی",
       "description": "رویداد های سفارشی بسازید، ساده یا شدیدا پیچیده.",
       "field-group": {
         "basic": {
