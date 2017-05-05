@@ -1,4 +1,4 @@
-const EventManager = require('./event.manager.js').EventManager;
+const EventManager = require('./event.manager.js');
 
 const App = function App(config = {}) {
   const eventManager = new EventManager({
@@ -41,4 +41,4 @@ const App = function App(config = {}) {
   };
 };
 
-exports.CoripoApi = App;
+module.exports = App;

@@ -2,7 +2,7 @@ const GregorianAdapter = require('coripo-core').GregorianAdapter;
 const Event = require('coripo-core').Event;
 const OneDate = require('coripo-core').OneDate;
 const i18next = require('i18next');
-const BasicGenerator = require('./basic.generator.js').Generator;
+const BasicGenerator = require('./basic.generator.js');
 const locales = require('../locales/index.js');
 
 const EventManager = function EventManager(config = {}) {
@@ -161,21 +161,29 @@ const EventManager = function EventManager(config = {}) {
           .filter(e => !e.collides(rangeSince, rangeTill));
         const trimmedSlaves = slaveEvents.map((evt) => {
           let slave = evt;
-          let collision = slave.collides(rangeSince, rangeTill);
-          while (collision) {
-            if (collision.includes('r')) {
+          let col = slave.collides(rangeSince, rangeTill);
+          while (col) {
+            if (col.includes('outside')) {
+              slave = undefined;
+            } else if (col.includes('left') && col.includes('right')) {
+              slave = undefined;
+            } else if (col.includes('right')) {
               slave = (new Event(Object.assign({}, slave, {
                 till: rangeSince.offsetDay(-1),
               }))).query(_since, _till, 'event[]')[0];
-            } else if (collision.includes('l')) {
+            } else if (col.includes('left')) {
               slave = (new Event(Object.assign({}, slave, {
                 since: rangeTill.offsetDay(1),
               }))).query(_since, _till, 'event[]')[0];
+            } else if (col.includes('inside')) {
+              slave = (new Event(Object.assign({}, slave, {
+                till: rangeSince.offsetDay(-1),
+              }))).query(_since, _till, 'event[]')[0];
             }
-            collision = slave ? slave.collides(rangeSince, rangeTill) : false;
+            col = slave ? slave.collides(rangeSince, rangeTill) : false;
           }
           return slave;
-        }).filter(evt => evt && evt.till.int() - evt.since.int() >= 0);
+        }).filter(evt => evt !== undefined);
         item.events = evts.concat(trimmedSlaves);
         return sa.concat(item);
       }, []);
@@ -213,4 +221,4 @@ const EventManager = function EventManager(config = {}) {
   };
 };
 
-exports.EventManager = EventManager;
+module.exports = EventManager;

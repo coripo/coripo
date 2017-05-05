@@ -1,1 +1,1 @@
-exports.CoripoApi = require('./lib/index.js').CoripoApi;
+module.exports = require('./lib/index.js');

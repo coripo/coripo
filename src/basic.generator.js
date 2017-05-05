@@ -159,4 +159,4 @@ const Generator = function Generator(dependencies, config = {}) {
   };
 };
 
-exports.Generator = Generator;
+module.exports = Generator;

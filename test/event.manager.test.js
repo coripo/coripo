@@ -2,10 +2,10 @@
 const expect = require('chai').expect;
 const Event = require('coripo-core').Event;
 const GregorianAdapter = require('coripo-core').GregorianAdapter;
-const JalaliAdapter = require('coripo-adapter-jalali').Adapter;
-const BasicGenerator = require('../src/basic.generator.js').Generator;
-const MenstruationGenerator = require('coripo-generator-menstruation').Generator;
-const EventManager = require('../src/event.manager.js').EventManager;
+const JalaliAdapter = require('coripo-adapter-jalali');
+const BasicGenerator = require('../src/basic.generator.js');
+const MenstruationGenerator = require('coripo-generator-menstruation');
+const EventManager = require('../src/event.manager.js');
 
 describe('Event Manager', () => {
   const BASIC_GENERATOR_ID = new BasicGenerator(Event).id;
