@@ -25,6 +25,17 @@ const Generator = function Generator(dependencies, config = {}) {
           type: 'text',
         },
         {
+          id: 'color',
+          label: trl('basic-generator.field-group.basic.field.color.label'),
+          type: 'color',
+        },
+        {
+          id: 'icon',
+          label: trl('basic-generator.field-group.basic.field.icon.label'),
+          type: 'text',
+          comment: trl('basic-generator.field-group.basic.field.icon.comment'),
+        },
+        {
           id: 'note',
           label: trl('basic-generator.field-group.basic.field.note.label'),
           type: 'wysiwyg',
@@ -135,6 +146,8 @@ const Generator = function Generator(dependencies, config = {}) {
       id: cfg.id,
       generatorId: id,
       title: cfg.title,
+      icon: cfg.icon,
+      color: cfg.color,
       note: cfg.note,
       since: new dependencies.OneDate(cfg.since, helper),
       till: new dependencies.OneDate((cfg.till || cfg.since), helper),

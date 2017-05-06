@@ -13,6 +13,13 @@
             "note": {
               "label": "Note"
             },
+            "color": {
+              "label": "Color"
+            },
+            "icon": {
+              "label": "Icon",
+              "comment": "choose an icon from <a href='http://fontawesome.io/icons/'>fontawesome</a> and write the unique part of the icon id. for example to get 'fa fa-car' write 'car'."
+            },
             "since": {
               "label": "Since",
               "comment": "Choose the beginning date"

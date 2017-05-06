@@ -13,6 +13,13 @@
             "note": {
               "label": "یادداشت"
             },
+            "color": {
+              "label": "رنگ"
+            },
+            "icon": {
+              "label": "آیکن",
+              "comment": "از <a href='http://fontawesome.io/icons/'>fontawesome</a> یک آیکن انتخاب کنید و قسمت منحصر بفرد آیکن را بنویسید. برای مثال برای 'fa fa-car' بنویسید 'car'."
+            },
             "since": {
               "label": "از زمان",
               "comment": "زمان شروع را انتخاب کنید"
