@@ -1,5 +1,5 @@
 {
-  "name": "coripo-api",
+  "name": "coripo",
   "version": "2.0.0",
   "description": "a simple yet super-flexible calendar API",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coripo/coripo-api.git"
+    "url": "git+https://github.com/coripo/coripo.git"
   },
   "keywords": [
     "calendar"
@@ -22,9 +22,9 @@
   "author": "Dariush Alipour <drsh.alipour@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/coripo/coripo-api/issues"
+    "url": "https://github.com/coripo/coripo/issues"
   },
-  "homepage": "https://github.com/coripo/coripo-api#readme",
+  "homepage": "https://github.com/coripo/coripo#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.4.0",
