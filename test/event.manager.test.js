@@ -3,18 +3,18 @@ const expect = require('chai').expect;
 const Event = require('coripo-core').Event;
 const GregorianAdapter = require('coripo-core').GregorianAdapter;
 const JalaliAdapter = require('coripo-adapter-jalali');
-const BasicGenerator = require('../src/basic.generator.js');
+const AdvancedGenerator = require('coripo-generator-advanced');
 const MenstruationGenerator = require('coripo-generator-menstruation');
 const EventManager = require('../src/event.manager.js');
 
 describe('Event Manager', () => {
-  const BASIC_GENERATOR_ID = new BasicGenerator(Event).id;
+  const ADVANCED_GENERATOR_ID = new AdvancedGenerator(Event).id;
   const MENSTRUATION_GENERATOR_ID = new MenstruationGenerator(Event).id;
   const GREGORIAN_ADAPTER_ID = new GregorianAdapter().id;
   const JALALI_ADAPTER_ID = new JalaliAdapter().id;
 
   describe('getAdaptersInfo()', () => {
-    const eventManager = new EventManager();
+    const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
     it('should return an array', () => {
       expect(eventManager.getAdaptersInfo()).to.be.an('array');
@@ -22,7 +22,7 @@ describe('Event Manager', () => {
   });
 
   describe('getGeneratorsInfo()', () => {
-    const eventManager = new EventManager();
+    const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
     it('should return an array', () => {
       expect(eventManager.getGeneratorsInfo()).to.be.an('array');
@@ -30,7 +30,7 @@ describe('Event Manager', () => {
   });
 
   describe('generateDate()', () => {
-    const eventManager = new EventManager();
+    const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
     it('should return a OneDate Object', () => {
       const date = eventManager.generateDate({ year: 2017, month: 10, day: 23 });
@@ -39,7 +39,7 @@ describe('Event Manager', () => {
   });
 
   describe('getCurrentDate()', () => {
-    const eventManager = new EventManager();
+    const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
     it('should return an object with year, month and day property', () => {
       const date = eventManager.getCurrentDate();
@@ -51,7 +51,7 @@ describe('Event Manager', () => {
   });
 
   describe('getMonthInfo()', () => {
-    const eventManager = new EventManager();
+    const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
     it('should return an object with name string and days number', () => {
       const info = eventManager.getMonthInfo(2017, 10);
@@ -62,24 +62,24 @@ describe('Event Manager', () => {
 
   describe('addEvent()', () => {
     it('should increase events array size appropriately', () => {
-      const eventManager = new EventManager();
+      const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
       expect(eventManager.addEvent({
-        generatorId: BASIC_GENERATOR_ID,
+        generatorId: ADVANCED_GENERATOR_ID,
         title: 'Dentist Appointment',
         note: 'Don\'t ask the dentist why he smokes',
         since: { year: 2017, month: 5, day: 14, adapterId: GREGORIAN_ADAPTER_ID },
       })).to.have.lengthOf(1);
 
       expect(eventManager.addEvent({
-        generatorId: BASIC_GENERATOR_ID,
+        generatorId: ADVANCED_GENERATOR_ID,
         title: 'Business Meeting',
         note: 'Fortunately it\'s an informal one',
         since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
       })).to.have.lengthOf(2);
 
       expect(eventManager.addEvent({
-        generatorId: BASIC_GENERATOR_ID,
+        generatorId: ADVANCED_GENERATOR_ID,
         title: 'Vacation Time',
         note: '5 days of pure fun and relaxation in 305',
         since: { year: 2017, month: 9, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
@@ -91,24 +91,24 @@ describe('Event Manager', () => {
   describe('getEventsIn()', () => {
     context('when all gregorian', () => {
       it('should return an array of 2 events', () => {
-        const eventManager = new EventManager();
+        const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Dentist Appointment',
           note: 'Don\'t ask the dentist why he smokes',
           since: { year: 2017, month: 5, day: 14, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Business Meeting',
           note: 'Fortunately it\'s an informal one',
           since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Vacation Time',
           note: '5 days of pure fun and relaxation in 305',
           since: { year: 2017, month: 9, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
@@ -123,25 +123,28 @@ describe('Event Manager', () => {
     context('when various adapters with gregorian as primary', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager({
-          plugins: { adapters: [JalaliAdapter] },
+          plugins: {
+            generators: [AdvancedGenerator],
+            adapters: [JalaliAdapter],
+          },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Meeting in Teheran',
           note: 'Yay!',
           since: { year: 1396, month: 2, day: 4, adapterId: JALALI_ADAPTER_ID },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Business Meeting',
           note: 'Fortunately it\'s an informal one',
           since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Meeting in Sacramento',
           note: 'As usual..',
           since: { year: 2017, month: 4, day: 25, adapterId: GREGORIAN_ADAPTER_ID },
@@ -154,26 +157,29 @@ describe('Event Manager', () => {
     context('when various adapters with jalali as primary', () => {
       it('should return an array of 2 events', () => {
         const eventManager = new EventManager({
-          plugins: { adapters: [JalaliAdapter] },
+          plugins: {
+            generators: [AdvancedGenerator],
+            adapters: [JalaliAdapter],
+          },
           primaryAdapterId: JALALI_ADAPTER_ID,
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Meeting in Teheran',
           note: 'Yay!',
           since: { year: 1396, month: 2, day: 4, adapterId: JALALI_ADAPTER_ID },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Business Meeting',
           note: 'Fortunately it\'s an informal one',
           since: { year: 2017, month: 3, day: 5, adapterId: GREGORIAN_ADAPTER_ID },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Meeting in Sacramento',
           note: 'As usual..',
           since: { year: 2017, month: 4, day: 25, adapterId: GREGORIAN_ADAPTER_ID },
@@ -187,11 +193,14 @@ describe('Event Manager', () => {
       it('should return an array each month 8 and day 26', () => {
         const eventManager = new EventManager({
           primaryAdapterId: JALALI_ADAPTER_ID,
-          plugins: { adapters: [JalaliAdapter] },
+          plugins: {
+            generators: [AdvancedGenerator],
+            adapters: [JalaliAdapter],
+          },
         });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'Jalali Birthday',
           since: { year: 1371, month: 8, day: 26, adapterId: JALALI_ADAPTER_ID },
           repeats: [{ times: -1, cycle: 'year', step: 1 }],
@@ -205,10 +214,10 @@ describe('Event Manager', () => {
     });
     context('when has sequels and repeats', () => {
       it('should return an array of 3 events', () => {
-        const eventManager = new EventManager();
+        const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
         eventManager.addEvent({
-          generatorId: BASIC_GENERATOR_ID,
+          generatorId: ADVANCED_GENERATOR_ID,
           title: 'overlap trim test',
           since: { year: 2017, month: 4, day: 4 },
           till: { year: 2017, month: 4, day: 6 },
@@ -314,17 +323,17 @@ describe('Event Manager', () => {
 
   describe('removeEvent()', () => {
     it('should return an array with length of 1', () => {
-      const eventManager = new EventManager({});
+      const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
 
       eventManager.addEvent({
-        generatorId: BASIC_GENERATOR_ID,
+        generatorId: ADVANCED_GENERATOR_ID,
         id: 1,
         since: { year: 2017, month: 4, day: 3 },
         till: { year: 2017, month: 4, day: 5 },
       });
 
       eventManager.addEvent({
-        generatorId: BASIC_GENERATOR_ID,
+        generatorId: ADVANCED_GENERATOR_ID,
         id: 2,
         since: { year: 2017, month: 4, day: 4 },
         till: { year: 2017, month: 4, day: 5 },
@@ -335,9 +344,9 @@ describe('Event Manager', () => {
 
   describe('editEvent()', () => {
     it('should return an array with length of 1 with new values', () => {
-      const eventManager = new EventManager({});
+      const eventManager = new EventManager({ plugins: { generators: [AdvancedGenerator] } });
       const eventConfig = {
-        generatorId: BASIC_GENERATOR_ID,
+        generatorId: ADVANCED_GENERATOR_ID,
         id: 2,
         since: { year: 2017, month: 4, day: 4 },
         till: { year: 2017, month: 4, day: 5 },

@@ -2,7 +2,6 @@ const GregorianAdapter = require('coripo-core').GregorianAdapter;
 const Event = require('coripo-core').Event;
 const OneDate = require('coripo-core').OneDate;
 const i18next = require('i18next');
-const BasicGenerator = require('./basic.generator.js');
 const locales = require('../locales/index.js');
 
 const EventManager = function EventManager(config = {}) {
@@ -91,8 +90,10 @@ const EventManager = function EventManager(config = {}) {
     adapters = adapters.map(Adapter => new Adapter({ locale }));
     primaryAdapterId = config.primaryAdapterId || new GregorianAdapter({ locale }).id;
     primaryAdapter = getAdapter(primaryAdapterId);
-
-    generators = ([BasicGenerator]).concat((config.plugins || {}).generators || []);
+    generators = (config.plugins || {}).generators || [];
+    if (generators.length === 0) {
+      throw new Error('config.plugins.generators array must at least have one generator');
+    }
     generators = generators.map((Generator) => {
       const dependencies = { Event, OneDate, getAdapter, primaryAdapterId };
       return new Generator(dependencies, { locale });

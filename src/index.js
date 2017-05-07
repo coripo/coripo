@@ -1,11 +1,14 @@
 const EventManager = require('./event.manager.js');
 
 const App = function App(config = {}) {
+  if ((config.generators || []).length === 0) {
+    throw new Error('config.generators array must at least have one generator');
+  }
   const eventManager = new EventManager({
     primaryAdapterId: config.primaryAdapterId,
     plugins: {
       adapters: config.adapters || [],
-      generators: config.generators || [],
+      generators: config.generators,
     },
     locale: config.locale || 'en',
   });

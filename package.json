@@ -1,6 +1,6 @@
 {
   "name": "coripo-api",
-  "version": "1.0.24",
+  "version": "2.0.0",
   "description": "a simple yet super-flexible calendar API",
   "main": "index.js",
   "babel": {
@@ -30,6 +30,7 @@
     "babel-preset-env": "^1.4.0",
     "chai": "^3.5.0",
     "coripo-adapter-jalali": "^1.0.8",
+    "coripo-generator-advanced": "^1.0.0",
     "coripo-generator-menstruation": "^1.0.5",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
