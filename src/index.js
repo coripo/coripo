@@ -11,6 +11,7 @@ const App = function App(config = {}) {
       generators: config.generators,
     },
     locale: config.locale || 'en',
+    organizationFeature: config.organizationFeature || false,
   });
 
   const getAdaptersInfo = () => eventManager.getAdaptersInfo();

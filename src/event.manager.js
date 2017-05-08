@@ -31,7 +31,7 @@ const EventManager = function EventManager(config = {}) {
       id: g.id,
       name: g.name,
       description: g.description,
-      inputs: g.inputs.concat([
+      inputs: g.inputs.concat(config.organizationFeature ? [
         {
           title: trl('event-manager.common-generator.field-group.organization.title'),
           fields: [
@@ -49,7 +49,7 @@ const EventManager = function EventManager(config = {}) {
             },
           ],
         },
-      ]),
+      ] : []),
     }
   ));
 
